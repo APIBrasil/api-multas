@@ -30,7 +30,7 @@ git clone https://github.com/APIBrasil/api-multas.git && cd /api-multas
 ```
 
 ```bash
-cp .env-exemplo .env && yarn start
+cp .env-exemplo .env && yarn && yarn start
 ```
 
 # Exemplos de requests e respostas
@@ -69,6 +69,3 @@ https://localhost:2222/multas/mg
     ]
 }
 ```
-# Preview postman
-![image](https://github.com/APIBrasil/api-multas/assets/31408451/88be72e5-84f7-43b5-8e2f-cbf49bfea860)
-
