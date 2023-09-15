@@ -1,8 +1,8 @@
 class validation {
 
-    public validate(placa: string, renavam: string) {
+    public generic(placa: string, renavam: string) {
 
-        if (placa != 'string' || renavam != 'string') {
+        if (typeof placa != 'string' || typeof renavam != 'string') {
             return {
                 message: 'Validation error',
                 errors: 'Placa and Renavam are required'
@@ -27,10 +27,14 @@ class validation {
             erros.push('Renavam is not valid');
         }
 
-        return {
-            message: 'Validation error',
-            errors: erros
+        if (erros.length > 0) {
+            return {
+                message: 'Validation error',
+                errors: erros
+            }
         }
+
+        return null;
 
     }
 
