@@ -15,13 +15,13 @@ class Mg {
             if (errors) {
                 return res.status(400).json(errors);
             }
-            const multas = await exports.mg.scrap(placa, renavam);
+            const multas = await this.scrap(placa, renavam);
             res.status(200).json(multas);
         };
         this.scrap = async (placa, renavam) => {
             const browser = await puppeteer_1.default.launch({
-                headless: 'new',
-                slowMo: 0,
+                headless: process.env.NODE_ENV === 'production' ? 'new' : false,
+                slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
                 timeout: 5000,
                 args: [
                     '--no-sandbox',

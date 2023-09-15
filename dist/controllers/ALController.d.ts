@@ -6,10 +6,16 @@ declare class Al {
         multas: never[];
         message: any;
     } | {
+        multas: any;
+        placa: string;
+        renavam: string;
         message: string;
-        placa?: undefined;
-        renavam?: undefined;
-        multas?: undefined;
+    }>;
+    checkErros: (browser: any, page: any, placa: string, renavam: string) => Promise<false | {
+        placa: string;
+        renavam: string;
+        multas: never[];
+        message: any;
     }>;
     convertStringToDecimal: (value: string) => number;
 }

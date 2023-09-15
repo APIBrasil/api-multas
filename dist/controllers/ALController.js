@@ -12,17 +12,16 @@ class Al {
             const placa = req.body.placa;
             const renavam = req.body.renavam;
             const errors = validation_1.default.generic(placa, renavam);
-            console.log(errors);
             if (errors) {
                 return res.status(400).json(errors);
             }
-            const multas = await exports.al.scrap(placa, renavam);
+            const multas = await this.scrap(placa, renavam);
             res.status(200).json(multas);
         };
         this.scrap = async (placa, renavam) => {
             const browser = await puppeteer_1.default.launch({
-                headless: false,
-                slowMo: 50,
+                headless: process.env.NODE_ENV === 'production' ? 'new' : false,
+                slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
                 timeout: 5000,
                 args: [
                     '--no-sandbox',
@@ -46,10 +45,38 @@ class Al {
             const buttons = await page.$$(buttonsSelector);
             const buttonSubmit = buttons[0];
             await (buttonSubmit === null || buttonSubmit === void 0 ? void 0 : buttonSubmit.click());
+            console.log('click');
+            const erros = await this.checkErros(browser, page, placa, renavam);
+            console.log(erros);
+            if (erros) {
+                return erros;
+            }
+            console.log('passou');
+            //div col-sm-7
+            const div = await page.$('.col-sm-7');
+            const divHtml = await page.evaluate(div => div.innerHTML, div);
+            const multas = [];
+            const jsonData = [];
+            // console.log(divHtml);
+            //get ul from divHtml 
+            const lis = await page.$$('ul.list-group > li');
+            for (let li of lis) {
+                const liHtml = await page.evaluate(li => li.innerHTML, li);
+                const data = liHtml.split('<br>')
+                    .map((item) => {
+                    return item.replace(/(<([^>]+)>)/gi, "").replace(/\n\t/g, "").replace('\n', '').trim();
+                });
+                console.log(data);
+                multas.push(liHtml);
+            }
+            await browser.close();
+            return { multas: multas, placa: placa, renavam: renavam, message: '' };
+        };
+        this.checkErros = async (browser, page, placa, renavam) => {
             try {
                 const divErrorSelector = '.error';
-                const divErrors = await page.waitForSelector(divErrorSelector);
-                const divErrorsHtml = await page.evaluate(divErrors => divErrors.innerHTML, divErrors);
+                const divErrors = await page.waitForSelector(divErrorSelector, { timeout: 5000 });
+                const divErrorsHtml = await page.evaluate((divErrors) => divErrors.innerHTML, divErrors);
                 const errosClear = divErrorsHtml.replace(/(<([^>]+)>)/gi, "").replace(/\n\t/g, "").trim();
                 await browser.close();
                 return {
@@ -60,30 +87,8 @@ class Al {
                 };
             }
             catch (e) {
-                // const tableSelector = 'table > tbody > tr';
-                // await page.waitForSelector(tableSelector);
-                // const trs = await page.$$(tableSelector);
-                // const multas = [] as any[];
-                // for (const tr of trs) {
-                //     const tds = await tr.$$('td');
-                //     const data = await page.evaluate(td => td.innerHTML, tds[0]);
-                //     const descricao = await page.evaluate(td => td.innerHTML, tds[1]);
-                //     const valor = await page.evaluate(td => td.innerHTML, tds[2]);
-                //     multas.push({
-                //         data: data,
-                //         descricao: descricao,
-                //         valor: this.convertStringToDecimal(valor)
-                //     });
-                // }
-                // await browser.close();
-                // return {
-                //     placa: placa,
-                //     renavam: renavam,
-                //     multas: multas,
-                //     message: ''
-                // };
+                return false;
             }
-            return { message: 'Scraping is not implemented yet' };
         };
         this.convertStringToDecimal = (value) => {
             return Number(value.replace('R$ ', '').replace('.', '').replace(',', '.'));

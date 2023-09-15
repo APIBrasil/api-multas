@@ -1,12 +1,30 @@
+import validation from '../validations/validation';
 import puppeteer from "puppeteer";
 
 class Mg {
 
+    index = async (req: any, res: any) => {
+
+        const placa = req.body.placa as string;
+        const renavam = req.body.renavam as string;
+    
+        const errors =  validation.generic(placa, renavam);
+    
+        if (errors) {
+            return res.status(400).json(errors);
+        }
+        
+        const multas = await this.scrap(placa, renavam);
+    
+        res.status(200).json(multas);
+        
+    } 
+
     scrap = async (placa: string, renavam: string) => {
 
         const browser = await puppeteer.launch({
-            headless: 'new',
-            slowMo: 0,
+            headless: process.env.NODE_ENV === 'production' ? 'new' : false,
+            slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
             timeout: 5000,
             args: [
                 '--no-sandbox',
@@ -46,7 +64,7 @@ class Mg {
 
         } catch (error) {
             await browser.close();
-            return { placa, renavam, multas: [] };
+            return { placa, renavam, multas: [], message: 'Não foi possível encontrar multas para este veículo.' };
         }
 
         const linkPadrao = await page.$(linkPadraoSelector);
