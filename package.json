@@ -1,0 +1,26 @@
+{
+	"name": "Hello-World",
+	"version": "1.0.0",
+	"description": "Hello world project",
+	"main": "./dist",
+	"license": "MIT",
+	"scripts": {
+		"dev": "tsc && link-module-alias && concurrently \"tsc --watch\" \"nodemon dist/index.js\"",
+		"start": "tsc && link-module-alias && node dist/index.js",
+		"test": "jest",
+		"docs": "typedoc ./src/index.ts"
+	},
+	"devDependencies": {
+		"@types/jest": "^29.2.5",
+		"concurrently": "^7.5.0",
+		"nodemon": "^2.0.22",
+		"typedoc": "^0.23.21",
+		"typescript": "^4.9.3"
+	},
+	"dependencies": {
+		"link-module-alias": "^1.2.0"
+	},
+	"_moduleAliases": {
+		"src": "dist"
+	}
+}
