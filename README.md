@@ -13,7 +13,7 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 
 # Dependencias
 ```bash
-apt update -y && apt upgrade -y && apt install git -y 
+apt update -y && apt upgrade -y && apt install git curl -y 
 ```
 
 ```bash
