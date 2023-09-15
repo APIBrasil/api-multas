@@ -103,4 +103,4 @@ class Mg {
     }
 }
 
-export const mg = new Mg().scrap;
+export const mg = new Mg();
