@@ -1,22 +1,26 @@
-# API Multas Brasil 
+# 💵 API de Multas Brasil 
 ### A ideia desse repositório é obter dados de Multas de todos os Detrans, através de Web Scrap e retornar os dados das multas em JSON
 
 # Estados suportados
 Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados, se quiser sugerir um estado, abra uma PR
 
-| Estados  | Situação |
-| ------------- | ------------- |
-| MG  | Beta disponível  |
-| SP  | Não disponível  |
-| SC  | Não disponível  |
-| RJ  | Não disponível  |
+| Estados      | Status             | Situação             |
+| -------------| ------------------ | ---------------------|
+| MG           | Disponível         |    Testado)          |
+| AL           | Já Implementado    | Sem docs para testes |
+| SP           | Não disponível     | Sem docs para testes |
+| SC           | Não disponível     | Sem docs para testes |
+| RJ           | Não disponível     | Sem docs para testes |
 
-# Dependencias
+# Dependencias (Linux)
 ```bash
 apt update -y && apt upgrade -y && apt install git curl -y 
 ```
 
+# Nvm e Yarn
 ```bash
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash  && source ~/.profile  && nvm install 18 && nvm use 18
+
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt update -y && sudo apt install yarn -y && yarn global add pm2
 ```
 
@@ -34,11 +38,16 @@ cp .env-exemplo .env && yarn && yarn start
 ```
 
 # Exemplos de requests e respostas
-### Endpoint [POST]
+### Endpoint
 
-https://localhost:2222/multas/mg
-
+```
+[POST] https://localhost:2222/multas/mg
+```
+```
+[POST] https://localhost:2222/multas/al
+```
 ### Payload
+O payload é padrão para todos os estados.
 ```json
 { 
     "placa":"ABC1234",
@@ -47,6 +56,7 @@ https://localhost:2222/multas/mg
 ```
 
 ### Response
+O response pode variar de acordo com o estado.
 ```json
 {
     "placa": "ABC1234",
