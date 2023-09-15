@@ -2,17 +2,14 @@ class validation {
 
     public validate(placa: string, renavam: string) {
 
-        console.log(typeof placa == 'undefined');
-
-        let erros = [];
-
         if (placa != 'string' || renavam != 'string') {
-            erros.push('Placa and Renavam are required');
             return {
-                message: 'validation error',
-                errors: erros
+                message: 'Validation error',
+                errors: 'Placa and Renavam are required'
             }
         }
+
+        let erros = [];
 
         if (!placa) {
             erros.push('Placa is required');
@@ -30,10 +27,8 @@ class validation {
             erros.push('Renavam is not valid');
         }
 
-        console.log(placa, renavam, erros);
-
         return {
-            message: 'validation error',
+            message: 'Validation error',
             errors: erros
         }
 

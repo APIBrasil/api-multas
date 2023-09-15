@@ -2,15 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class validation {
     validate(placa, renavam) {
-        console.log(typeof placa == 'undefined');
-        let erros = [];
         if (placa != 'string' || renavam != 'string') {
-            erros.push('Placa and Renavam are required');
             return {
-                message: 'validation error',
-                errors: erros
+                message: 'Validation error',
+                errors: 'Placa and Renavam are required'
             };
         }
+        let erros = [];
         if (!placa) {
             erros.push('Placa is required');
         }
@@ -23,9 +21,8 @@ class validation {
         if (renavam.length < 9 || renavam.length > 11) {
             erros.push('Renavam is not valid');
         }
-        console.log(placa, renavam, erros);
         return {
-            message: 'validation error',
+            message: 'Validation error',
             errors: erros
         };
     }

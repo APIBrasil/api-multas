@@ -11,7 +11,6 @@ routes.post('/multas/mg', async (req, res) => {
     const placa = req.body.placa;
     const renavam = req.body.renavam;
     const errors = Mg_2.default.validate(placa, renavam);
-    console.log(errors);
     if (errors) {
         return res.status(400).json(errors);
     }

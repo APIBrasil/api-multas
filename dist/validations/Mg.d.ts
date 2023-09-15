@@ -1,6 +1,9 @@
 declare class validation {
     validate(placa: string, renavam: string): {
         message: string;
+        errors: string;
+    } | {
+        message: string;
         errors: string[];
     };
 }

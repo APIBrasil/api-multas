@@ -16,14 +16,10 @@ class Mg {
             ]
         });
         
-        //open new page
         const page = await browser.newPage();
 
-        //go to url
         await page.goto('https://www.detran.mg.gov.br/veiculos/situacao-do-veiculo/emitir-de-extrato-de-multas');
 
-        //#placa
-        //#renavam
         const placaSelector = '#placa';
         const renavamSelector = '#renavam';
         const linkPadraoSelector = '.link-padrao';
@@ -33,16 +29,12 @@ class Mg {
         const inputPlaca = await page.$(placaSelector);
         const inputRenavam = await page.$(renavamSelector);
 
-        //remove caracters special or letters
         renavam = renavam.replace(/[^0-9]/g, '');
-
-        //remove caracters special placa
         placa = placa.replace(/[^a-zA-Z0-9]/g, '');
 
         await inputPlaca?.type(placa);
         await inputRenavam?.type(renavam);
 
-        //click to button two
         const buttons = await page.$$(buttonsSelector);
         const buttonSubmit = buttons[1];
 

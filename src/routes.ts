@@ -12,8 +12,6 @@ routes.post('/multas/mg', async (req, res) => {
 
     const errors =  validation.validate(placa, renavam);
 
-    console.log(errors);
-
     if (errors) {
         return res.status(400).json(errors);
     }
