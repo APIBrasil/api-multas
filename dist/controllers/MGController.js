@@ -31,7 +31,7 @@ class Mg {
                 ]
             });
             const page = await browser.newPage();
-            await page.goto('https://www.detran.mg.gov.br/veiculos/situacao-do-veiculo/emitir-de-extrato-de-multas');
+            await page.goto(`${process.env.MG_URL}`);
             const placaSelector = '#placa';
             const renavamSelector = '#renavam';
             const linkPadraoSelector = '.link-padrao';

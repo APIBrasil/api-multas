@@ -36,7 +36,7 @@ class Al {
         
         const page = await browser.newPage();
 
-        await page.goto('https://www.detran.al.gov.br/veiculos/guia_infracoes/');
+        await page.goto(`${process.env.AL_URL}`);
 
         const placaSelector = '#id_placa';
         const renavamSelector = '#id_renavam';
