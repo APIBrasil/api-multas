@@ -6,8 +6,8 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 
 | Estados      | Status             | Situação             |
 | -------------| ------------------ | ---------------------|
-| MG           | Disponível         |    Testado)          |
-| AL           | Já Implementado    | Sem docs para testes |
+| MG           | Disponível         |     Testado          |
+| AL           | Disponível         |     Testado          |
 | SP           | Não disponível     | Sem docs para testes |
 | SC           | Não disponível     | Sem docs para testes |
 | RJ           | Não disponível     | Sem docs para testes |
