@@ -17,6 +17,7 @@ declare class Al {
         multas: never[];
         message: any;
     }>;
+    removeAccents(str: string): string;
     convertStringToDecimal: (value: string) => number;
 }
 export declare const al: Al;

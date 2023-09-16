@@ -17,7 +17,6 @@ class Al {
         const multas = await this.scrap(placa, renavam);
     
         res.status(200).json(multas);
-    
 
     }
 
@@ -42,7 +41,6 @@ class Al {
         const placaSelector = '#id_placa';
         const renavamSelector = '#id_renavam';
 
-        // const linkPadraoSelector = '.link-padrao';
         const buttonsSelector = 'button[type="submit"]';
 
         const inputPlaca = await page.$(placaSelector);
@@ -59,49 +57,44 @@ class Al {
 
         await buttonSubmit?.click();
 
-        console.log('click');
-
         const erros = await this.checkErros(browser, page, placa, renavam);
-
-        console.log(erros);
 
         if(erros) {
             return erros;
         }
 
-        console.log('passou');
-
-        //div col-sm-7
-        const div = await page.$('.col-sm-7');
-        const divHtml = await page.evaluate(div => div.innerHTML, div);
-
         const multas = [] as any;
-        const jsonData = [] as any;
+        const uls = await page.$$('ul.list-group');
 
-        // console.log(divHtml);
+        for (let ul of uls) {
 
-        //get ul from divHtml 
-        const lis = await page.$$('ul.list-group > li');
-        for (let li of lis) {
+          const lis = await page.$$('ul.list-group > li');
+          const data = {} as any;
+        
+          for (let li of lis) {
 
             const liHtml = await page.evaluate(li => li.innerHTML, li);
+            const htmlContent = liHtml.split('<br>').map((item: string) => item.trim());
+        
+            const indice = this.removeAccents(htmlContent[0]) // Remover acentos
+            .replace(/(<([^>]+)>)/gi, "") // Remover tags HTML
+            .replace(/\n\t/g, "") // Remover quebras de linha e tabulações
+            .trim()
+            .toLowerCase()
+            .replace(/ /g, '_'); // Substituir espaços por underscores
+            
+            const value = htmlContent[1]
+            data[indice] = value;
 
-            const data = liHtml.split('<br>')
-                .map((item: string) => {
-                
-                    return item.replace(/(<([^>]+)>)/gi, "").replace(/\n\t/g, "").replace('\n', '').trim();
-
-                });
-
-            console.log(data);
-
-            multas.push(liHtml);
-
+          }
+        
+          multas.push(data);
         }
 
         await browser.close();
 
         return { multas: multas, placa: placa, renavam: renavam, message: '' };
+
     }
 
     checkErros = async (browser: any, page:any, placa:string, renavam:string) => {
@@ -127,6 +120,10 @@ class Al {
             return false;
         }
 
+    }
+
+    removeAccents(str: string) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 
     convertStringToDecimal = (value: string) => {

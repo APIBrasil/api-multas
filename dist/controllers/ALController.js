@@ -34,7 +34,6 @@ class Al {
             await page.goto('https://www.detran.al.gov.br/veiculos/guia_infracoes/');
             const placaSelector = '#id_placa';
             const renavamSelector = '#id_renavam';
-            // const linkPadraoSelector = '.link-padrao';
             const buttonsSelector = 'button[type="submit"]';
             const inputPlaca = await page.$(placaSelector);
             const inputRenavam = await page.$(renavamSelector);
@@ -45,29 +44,28 @@ class Al {
             const buttons = await page.$$(buttonsSelector);
             const buttonSubmit = buttons[0];
             await (buttonSubmit === null || buttonSubmit === void 0 ? void 0 : buttonSubmit.click());
-            console.log('click');
             const erros = await this.checkErros(browser, page, placa, renavam);
-            console.log(erros);
             if (erros) {
                 return erros;
             }
-            console.log('passou');
-            //div col-sm-7
-            const div = await page.$('.col-sm-7');
-            const divHtml = await page.evaluate(div => div.innerHTML, div);
             const multas = [];
-            const jsonData = [];
-            // console.log(divHtml);
-            //get ul from divHtml 
-            const lis = await page.$$('ul.list-group > li');
-            for (let li of lis) {
-                const liHtml = await page.evaluate(li => li.innerHTML, li);
-                const data = liHtml.split('<br>')
-                    .map((item) => {
-                    return item.replace(/(<([^>]+)>)/gi, "").replace(/\n\t/g, "").replace('\n', '').trim();
-                });
-                console.log(data);
-                multas.push(liHtml);
+            const uls = await page.$$('ul.list-group');
+            for (let ul of uls) {
+                const lis = await page.$$('ul.list-group > li');
+                const data = {};
+                for (let li of lis) {
+                    const liHtml = await page.evaluate(li => li.innerHTML, li);
+                    const htmlContent = liHtml.split('<br>').map((item) => item.trim());
+                    const indice = this.removeAccents(htmlContent[0]) // Remover acentos
+                        .replace(/(<([^>]+)>)/gi, "") // Remover tags HTML
+                        .replace(/\n\t/g, "") // Remover quebras de linha e tabulações
+                        .trim()
+                        .toLowerCase()
+                        .replace(/ /g, '_'); // Substituir espaços por underscores
+                    const value = htmlContent[1];
+                    data[indice] = value;
+                }
+                multas.push(data);
             }
             await browser.close();
             return { multas: multas, placa: placa, renavam: renavam, message: '' };
@@ -93,6 +91,9 @@ class Al {
         this.convertStringToDecimal = (value) => {
             return Number(value.replace('R$ ', '').replace('.', '').replace(',', '.'));
         };
+    }
+    removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 }
 exports.al = new Al();
