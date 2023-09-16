@@ -8,9 +8,10 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 | -------------| ------------------ | ---------------------|
 | MG           | Disponível         |     Testado          |
 | AL           | Disponível         |     Testado          |
-| SP           | Não disponível     | Sem docs para testes |
+| SP           | Não disponível     | Não é possivel ainda |
+| PB           | Não disponível     | Sem docs para testes |
 | SC           | Não disponível     | Sem docs para testes |
-| RJ           | Não disponível     | Sem docs para testes |
+| RJ           | Não disponível     | Não é possivel ainda |
 
 # Dependencias (Linux)
 ```bash
