@@ -1,3 +1,4 @@
+import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
 
@@ -46,9 +47,6 @@ class Al {
         const inputPlaca = await page.$(placaSelector);
         const inputRenavam = await page.$(renavamSelector);
 
-        renavam = renavam.replace(/[^0-9]/g, '');
-        placa = placa.replace(/[^a-zA-Z0-9]/g, '');
-
         await inputPlaca?.type(placa);
         await inputRenavam?.type(renavam);
 
@@ -76,7 +74,7 @@ class Al {
             const liHtml = await page.evaluate(li => li.innerHTML, li);
             const htmlContent = liHtml.split('<br>').map((item: string) => item.trim());
         
-            const indice = this.removeAccents(htmlContent[0]) // Remover acentos
+            const indice = utils.removeAccents(htmlContent[0]) // Remover acentos
             .replace(/(<([^>]+)>)/gi, "") // Remover tags HTML
             .replace(/\n\t/g, "") // Remover quebras de linha e tabulações
             .trim()
@@ -122,13 +120,6 @@ class Al {
 
     }
 
-    removeAccents(str: string) {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
-
-    convertStringToDecimal = (value: string) => {
-        return Number(value.replace('R$ ', '').replace('.', '').replace(',', '.'));
-    }
 }
 
 export const al = new Al();

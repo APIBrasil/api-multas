@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "66486881-fb74-491d-bf2e-272dc6189b63",
+		"name": "API - Multas BR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24382542",
+		"_collection_link": "https://docs-apibrasil.postman.co/workspace/DOCS---APIBRASIL~40fb5d09-7549-4e54-bf10-f6489dcc9253/collection/24382542-66486881-fb74-491d-bf2e-272dc6189b63?action=share&source=collection_link&creator=24382542"
+	},
+	"item": [
+		{
+			"name": "MG",
+			"item": [
+				{
+					"name": "Multas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "1234567890",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"placa\":\"BBC1234\",\r\n    \"renavam\":\"00000000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2222/multas/mg"
+					},
+					"response": [
+						{
+							"name": "Multas",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"placa\":\"ABC1234\",\r\n    \"renavam\":\"00000000000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:2222/multas/mg"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "412"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19c-jVydUPlQJ/XaI4JvwrJIrJriK+c\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Sep 2023 03:02:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"placa\": \"ABC1234\",\n    \"renavam\": \"00000000000\",\n    \"multas\": [\n        {\n            \"sequencia\": \"1\",\n            \"processo\": \"00000000\",\n            \"descricao\": \"TRANSITAR EM VELOCIDADE SUPERIOR A MAXIMA PERMITIDA EM ATE 2\",\n            \"local\": \"AV. RISOLETA NEVES  A 138M DA RUA RAIMUNDA FERREIR\",\n            \"valor\": 152.11\n        },\n        {\n            \"sequencia\": \"2\",\n            \"processo\": \"00000000\",\n            \"descricao\": \"DIRIGIR VEICULO SEGURANDO TELEFONE CELULAR\",\n            \"local\": \"AVE AFONSO SILVA ESQUINA RUA ESPIRITO DE LUZ\",\n            \"valor\": 299.54\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "AL",
+			"item": [
+				{
+					"name": "Multas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "1234567890",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"placa\":\"ABC1234\",\r\n    \"renavam\":\"00000000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2222/multas/al"
+					},
+					"response": [
+						{
+							"name": "Multas",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "1234567890",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"placa\":\"ABC1234\",\r\n    \"renavam\":\"00000000000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:2222/multas/al"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1797"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"705-6YEjAnZQh33PpJwBG/2NTQr8VNY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 16 Sep 2023 00:26:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"multas\": [\n        {\n            \"notificacao\": \"H000192110\",\n            \"descricao_da_multa\": \"TRANSITAR EM VELOC.SUP.A MAXIMA PERMIT.EM ATE 20%\",\n            \"data\": \"20/05/2017 AS 16:08\",\n            \"local\": \"AV. FERNANDES LIMA X AV. ROTAR\",\n            \"orgao_autuador\": \"PREF. DE: AL - MACEIO          - AL\",\n            \"situacao\": \"SUSPENSA\",\n            \"valor\": \"R$ 0,00\",\n            \"observacao\": \"MULTA DE OUTRA UF/ORGÃO NÃO CONVENIADO/PENDENTE DE AUTUAÇÃO\"\n        },\n        {\n            \"notificacao\": \"H000192110\",\n            \"descricao_da_multa\": \"TRANSITAR EM VELOC.SUP.A MAXIMA PERMIT.EM ATE 20%\",\n            \"data\": \"20/05/2017 AS 16:08\",\n            \"local\": \"AV. FERNANDES LIMA X AV. ROTAR\",\n            \"orgao_autuador\": \"PREF. DE: AL - MACEIO          - AL\",\n            \"situacao\": \"SUSPENSA\",\n            \"valor\": \"R$ 0,00\",\n            \"observacao\": \"MULTA DE OUTRA UF/ORGÃO NÃO CONVENIADO/PENDENTE DE AUTUAÇÃO\"\n        },\n        {\n            \"notificacao\": \"H000192110\",\n            \"descricao_da_multa\": \"TRANSITAR EM VELOC.SUP.A MAXIMA PERMIT.EM ATE 20%\",\n            \"data\": \"20/05/2017 AS 16:08\",\n            \"local\": \"AV. FERNANDES LIMA X AV. ROTAR\",\n            \"orgao_autuador\": \"PREF. DE: AL - MACEIO          - AL\",\n            \"situacao\": \"SUSPENSA\",\n            \"valor\": \"R$ 0,00\",\n            \"observacao\": \"MULTA DE OUTRA UF/ORGÃO NÃO CONVENIADO/PENDENTE DE AUTUAÇÃO\"\n        },\n        {\n            \"notificacao\": \"H000192110\",\n            \"descricao_da_multa\": \"TRANSITAR EM VELOC.SUP.A MAXIMA PERMIT.EM ATE 20%\",\n            \"data\": \"20/05/2017 AS 16:08\",\n            \"local\": \"AV. FERNANDES LIMA X AV. ROTAR\",\n            \"orgao_autuador\": \"PREF. DE: AL - MACEIO          - AL\",\n            \"situacao\": \"SUSPENSA\",\n            \"valor\": \"R$ 0,00\",\n            \"observacao\": \"MULTA DE OUTRA UF/ORGÃO NÃO CONVENIADO/PENDENTE DE AUTUAÇÃO\"\n        },\n        {\n            \"notificacao\": \"H000192110\",\n            \"descricao_da_multa\": \"TRANSITAR EM VELOC.SUP.A MAXIMA PERMIT.EM ATE 20%\",\n            \"data\": \"20/05/2017 AS 16:08\",\n            \"local\": \"AV. FERNANDES LIMA X AV. ROTAR\",\n            \"orgao_autuador\": \"PREF. DE: AL - MACEIO          - AL\",\n            \"situacao\": \"SUSPENSA\",\n            \"valor\": \"R$ 0,00\",\n            \"observacao\": \"MULTA DE OUTRA UF/ORGÃO NÃO CONVENIADO/PENDENTE DE AUTUAÇÃO\"\n        }\n    ],\n    \"placa\": \"ABC1234\",\n    \"renavam\": \"00000000000\",\n    \"message\": \"\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PB",
+			"item": [
+				{
+					"name": "Multas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "1234567890",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"placa\":\"ABC1234\",\r\n    \"renavam\":\"00000000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2222/multas/pb"
+					},
+					"response": [
+						{
+							"name": "Multas",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "1234567890",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"placa\":\"ABC1234\",\r\n    \"renavam\":\"00000000000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:2222/multas/pb"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "484"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1e4-ET7SgDagHfDBuv8kyPYI2/Da128\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Sep 2023 12:32:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"resultado\": {\n        \"placa\": \"ABC1234\",\n        \"renavam\": \"00000000000\",\n        \"multas\": [\n            {\n                \"orgao\": \"PRF\",\n                \"valor\": 209.85\n            },\n            {\n                \"orgao\": \"SEINFR\",\n                \"valor\": 195.23\n            },\n            {\n                \"orgao\": \"SEINFR\",\n                \"valor\": 195.23\n            },\n            {\n                \"orgao\": \"JAB GU\",\n                \"valor\": 197.18\n            }\n        ],\n        \"dados\": [\n            {\n                \"nome\": \"GIUSEMAR X GOMES X\",\n                \"documento\": \"00000000000\",\n                \"nosso_numero\": \"000000000000\",\n                \"codigo_barras\": \"00000000000-3 00000000000-7 00000000000-1 00000000000-0\",\n                \"renavam\": \"00000000000\",\n                \"data_vencimento\": \"30/09/2023\",\n                \"data_emissao\": \"17/09/2023\",\n                \"valor\": 797.49\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -6,17 +6,16 @@ declare class PB {
     } | {
         resultado: {
             multas: any;
-            dados: ({
+            dados: {
                 nome: any;
                 documento: any;
                 nosso_numero: any;
-                pagamento?: undefined;
-            } | {
-                pagamento: any;
-                nome?: undefined;
-                documento?: undefined;
-                nosso_numero?: undefined;
-            })[];
+                codigo_barras: any;
+                renavam: any;
+                data_vencimento: any;
+                data_emissao: any;
+                valor: number;
+            }[];
             placa: string;
             renavam: string;
         };

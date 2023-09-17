@@ -2,6 +2,9 @@ class validation {
 
     public generic(placa: string, renavam: string) {
 
+        placa = placa.replace(/[^a-zA-Z0-9]/g, '');
+        renavam = renavam.replace(/[^0-9]/g, '');
+
         if (typeof placa != 'string' || typeof renavam != 'string') {
             return {
                 message: 'Validation error',

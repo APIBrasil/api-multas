@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class validation {
     generic(placa, renavam) {
+        placa = placa.replace(/[^a-zA-Z0-9]/g, '');
+        renavam = renavam.replace(/[^0-9]/g, '');
         if (typeof placa != 'string' || typeof renavam != 'string') {
             return {
                 message: 'Validation error',

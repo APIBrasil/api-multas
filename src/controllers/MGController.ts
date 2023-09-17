@@ -1,3 +1,4 @@
+import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
 
@@ -47,9 +48,6 @@ class Mg {
         const inputPlaca = await page.$(placaSelector);
         const inputRenavam = await page.$(renavamSelector);
 
-        renavam = renavam.replace(/[^0-9]/g, '');
-        placa = placa.replace(/[^a-zA-Z0-9]/g, '');
-
         await inputPlaca?.type(placa);
         await inputRenavam?.type(renavam);
 
@@ -96,7 +94,7 @@ class Mg {
                 processo: content[1],
                 descricao: content[2],
                 local: content[3],
-                valor: this.convertStringToDecimal(content[4]),
+                valor: utils.convertStringToDecimal(content[4]),
             });
 
             return content;
@@ -108,9 +106,6 @@ class Mg {
         return { placa, renavam, multas };
     }
 
-    convertStringToDecimal = (value: string) => {
-        return Number(value.replace('R$ ', '').replace('.', '').replace(',', '.'));
-    }
 }
 
 export const mg = new Mg();

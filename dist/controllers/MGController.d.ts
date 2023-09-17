@@ -11,7 +11,6 @@ declare class Mg {
         multas: any[];
         message?: undefined;
     }>;
-    convertStringToDecimal: (value: string) => number;
 }
 export declare const mg: Mg;
 export {};

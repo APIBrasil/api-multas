@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.al = void 0;
+const utils_1 = __importDefault(require("src/utils/utils"));
 const validation_1 = __importDefault(require("../validations/validation"));
 const puppeteer_1 = __importDefault(require("puppeteer"));
 class Al {
@@ -37,8 +38,6 @@ class Al {
             const buttonsSelector = 'button[type="submit"]';
             const inputPlaca = await page.$(placaSelector);
             const inputRenavam = await page.$(renavamSelector);
-            renavam = renavam.replace(/[^0-9]/g, '');
-            placa = placa.replace(/[^a-zA-Z0-9]/g, '');
             await (inputPlaca === null || inputPlaca === void 0 ? void 0 : inputPlaca.type(placa));
             await (inputRenavam === null || inputRenavam === void 0 ? void 0 : inputRenavam.type(renavam));
             const buttons = await page.$$(buttonsSelector);
@@ -56,7 +55,7 @@ class Al {
                 for (let li of lis) {
                     const liHtml = await page.evaluate(li => li.innerHTML, li);
                     const htmlContent = liHtml.split('<br>').map((item) => item.trim());
-                    const indice = this.removeAccents(htmlContent[0]) // Remover acentos
+                    const indice = utils_1.default.removeAccents(htmlContent[0]) // Remover acentos
                         .replace(/(<([^>]+)>)/gi, "") // Remover tags HTML
                         .replace(/\n\t/g, "") // Remover quebras de linha e tabulações
                         .trim()
@@ -88,12 +87,6 @@ class Al {
                 return false;
             }
         };
-        this.convertStringToDecimal = (value) => {
-            return Number(value.replace('R$ ', '').replace('.', '').replace(',', '.'));
-        };
-    }
-    removeAccents(str) {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 }
 exports.al = new Al();

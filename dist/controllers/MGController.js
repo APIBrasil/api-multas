@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mg = void 0;
+const utils_1 = __importDefault(require("src/utils/utils"));
 const validation_1 = __importDefault(require("../validations/validation"));
 const puppeteer_1 = __importDefault(require("puppeteer"));
 class Mg {
@@ -39,8 +40,6 @@ class Mg {
             const tableSelector = 'table > tbody > tr';
             const inputPlaca = await page.$(placaSelector);
             const inputRenavam = await page.$(renavamSelector);
-            renavam = renavam.replace(/[^0-9]/g, '');
-            placa = placa.replace(/[^a-zA-Z0-9]/g, '');
             await (inputPlaca === null || inputPlaca === void 0 ? void 0 : inputPlaca.type(placa));
             await (inputRenavam === null || inputRenavam === void 0 ? void 0 : inputRenavam.type(renavam));
             const buttons = await page.$$(buttonsSelector);
@@ -74,15 +73,12 @@ class Mg {
                     processo: content[1],
                     descricao: content[2],
                     local: content[3],
-                    valor: this.convertStringToDecimal(content[4]),
+                    valor: utils_1.default.convertStringToDecimal(content[4]),
                 });
                 return content;
             }));
             await browser.close();
             return { placa, renavam, multas };
-        };
-        this.convertStringToDecimal = (value) => {
-            return Number(value.replace('R$ ', '').replace('.', '').replace(',', '.'));
         };
     }
 }
