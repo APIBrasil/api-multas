@@ -272,6 +272,98 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "GO",
+			"item": [
+				{
+					"name": "Multas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "1234567890",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"placa\":\"ABC1234\",\r\n    \"renavam\":\"000000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2222/multas/go"
+					},
+					"response": [
+						{
+							"name": "Multas",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "1234567890",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"placa\":\"ABC1234\",\r\n    \"renavam\":\"0000000000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:2222/multas/go"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3727"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e8f-6fstZ/VVGLg6++lsgmwXe+1AQFg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Sep 2023 16:05:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"placa\": \"ABC1234\",\n    \"renavam\": \"000000000\",\n    \"debitos\": {\n        \"debitosTotaisVeiculo\": {\n            \"descricao\": null,\n            \"totalSeguro\": \"R$ 0,00\",\n            \"totalMultas\": \"R$ 0,00\",\n            \"totalIpva\": \"R$ 0,00\",\n            \"totalDebitos\": \"R$ 251,25\",\n            \"totalLicenciamento\": \"R$ 251,25\"\n        },\n        \"situacaoMultaVeiculo\": {\n            \"multasVencidas\": [],\n            \"multasNaoVencidas\": [],\n            \"multasSubJudice\": [],\n            \"multasParceladas\": [],\n            \"multasNotificadas\": [\n                {\n                    \"descricao\": \"TRANSITAR VELOC SUPERIOR MAX PERMIT ENTR 20% E 50%\",\n                    \"valorTotal\": \"195.23\",\n                    \"dataNotificacao\": null,\n                    \"selecionado\": null,\n                    \"identificadorInfracao\": null,\n                    \"grupoInfracao\": \"GRAVE\",\n                    \"numeroPontos\": \"5\",\n                    \"autoInfracao\": \"ATV0344957\",\n                    \"siglaOrgaoAutuador\": \"DETRAN - PA\",\n                    \"orgaoAutuador\": \"DETRAN - PA\",\n                    \"responsavel\": \"CONDUTOR\",\n                    \"dataInfracao\": \"27/08/2023\",\n                    \"horaInfracao\": \"17:44\",\n                    \"dataAutuacao\": \"05/09/2023\",\n                    \"ufLocal\": \"PA\",\n                    \"cidadeAutuacao\": \"CURIONOPOLIS\",\n                    \"localInfracao\": \"RODOVIA PA 275 - KM 45.300\",\n                    \"situacao\": \"Multa com Notificacao de Autuacao\",\n                    \"dataVencimento\": \"25/10/2023\",\n                    \"valorDesconto\": \"156.18\",\n                    \"sequencial\": \"01\",\n                    \"codOrgaoAutuador\": \"114100\",\n                    \"emiteBordero\": \"N\",\n                    \"existeImagemAutoInfracao\": \"NAO\",\n                    \"placa\": \"ABC1234\",\n                    \"tipoMulta\": null\n                },\n                {\n                    \"descricao\": \"TRANSITAR VELOCIDADE SUPERIOR MAX PERMIT ATE 20%\",\n                    \"valorTotal\": \"130.16\",\n                    \"dataNotificacao\": null,\n                    \"selecionado\": null,\n                    \"identificadorInfracao\": null,\n                    \"grupoInfracao\": \"MEDIA\",\n                    \"numeroPontos\": \"4\",\n                    \"autoInfracao\": \"R024417320\",\n                    \"siglaOrgaoAutuador\": \"GOINFRA - GO\",\n                    \"orgaoAutuador\": \"GOINFRA - GO\",\n                    \"responsavel\": \"CONDUTOR\",\n                    \"dataInfracao\": \"26/08/2023\",\n                    \"horaInfracao\": \"06:32\",\n                    \"dataAutuacao\": \"02/09/2023\",\n                    \"ufLocal\": \"GO\",\n                    \"cidadeAutuacao\": \"INHUMAS\",\n                    \"localInfracao\": \"GO 070 KM 038+400M Goianira/Itaucu\",\n                    \"situacao\": \"Multa com Notificacao de Autuacao\",\n                    \"dataVencimento\": \"17/10/2023\",\n                    \"valorDesconto\": \"104.13\",\n                    \"sequencial\": \"01\",\n                    \"codOrgaoAutuador\": \"109200\",\n                    \"emiteBordero\": \"S\",\n                    \"existeImagemAutoInfracao\": \"NAO\",\n                    \"placa\": \"ABC1234\",\n                    \"tipoMulta\": null\n                },\n                {\n                    \"descricao\": \"TRANSITAR VELOCIDADE SUPERIOR MAX PERMIT ATE 20%\",\n                    \"valorTotal\": \"130.16\",\n                    \"dataNotificacao\": null,\n                    \"selecionado\": null,\n                    \"identificadorInfracao\": null,\n                    \"grupoInfracao\": \"MEDIA\",\n                    \"numeroPontos\": \"4\",\n                    \"autoInfracao\": \"S037232923\",\n                    \"siglaOrgaoAutuador\": \"DNIT\",\n                    \"orgaoAutuador\": \"DNIT\",\n                    \"responsavel\": \"CONDUTOR\",\n                    \"dataInfracao\": \"27/08/2023\",\n                    \"horaInfracao\": \"05:20\",\n                    \"dataAutuacao\": \"08/09/2023\",\n                    \"ufLocal\": \"TO\",\n                    \"cidadeAutuacao\": \"PARAISO DO TOCANTINS\",\n                    \"localInfracao\": \"BR153 KM 498,148\",\n                    \"situacao\": \"Multa com Notificacao de Autuacao\",\n                    \"dataVencimento\": \"24/10/2023\",\n                    \"valorDesconto\": \"104.13\",\n                    \"sequencial\": \"01\",\n                    \"codOrgaoAutuador\": \"000300\",\n                    \"emiteBordero\": \"N\",\n                    \"existeImagemAutoInfracao\": \"NAO\",\n                    \"placa\": \"ABC1234\",\n                    \"tipoMulta\": null\n                }\n            ],\n            \"multasAtivaSne\": []\n        },\n        \"debitosVeiculo\": [\n            {\n                \"valorTotal\": \"R$ 251,25\",\n                \"valorIpva\": \"ISENTO\",\n                \"dataVencimento\": \"20/10/2023\",\n                \"valorLicenciamento\": \"R$ 251,25\",\n                \"valorSeguro\": \"ISENTO\",\n                \"valorMulta\": \"----\",\n                \"anoExercicio\": \"2023\",\n                \"permiteEmissao\": \"S\"\n            },\n            {\n                \"valorTotal\": \"----\",\n                \"valorIpva\": \"ISENTO\",\n                \"dataVencimento\": \"14/12/2022\",\n                \"valorLicenciamento\": \"PAGO\",\n                \"valorSeguro\": \"ISENTO\",\n                \"valorMulta\": \"----\",\n                \"anoExercicio\": \"2022\",\n                \"permiteEmissao\": \"N\"\n            },\n            {\n                \"valorTotal\": \"----\",\n                \"valorIpva\": \"ISENTO\",\n                \"dataVencimento\": \"30/11/2021\",\n                \"valorLicenciamento\": \"PAGO\",\n                \"valorSeguro\": \"ISENTO\",\n                \"valorMulta\": \"----\",\n                \"anoExercicio\": \"2021\",\n                \"permiteEmissao\": \"N\"\n            },\n            {\n                \"valorTotal\": \"----\",\n                \"valorIpva\": \"ISENTO\",\n                \"dataVencimento\": \"11/12/2020\",\n                \"valorLicenciamento\": \"PAGO\",\n                \"valorSeguro\": \"ISENTO\",\n                \"valorMulta\": \"----\",\n                \"anoExercicio\": \"2020\",\n                \"permiteEmissao\": \"N\"\n            },\n            {\n                \"valorTotal\": \"----\",\n                \"valorIpva\": \"ISENTO\",\n                \"dataVencimento\": \"12/12/2019\",\n                \"valorLicenciamento\": \"PAGO\",\n                \"valorSeguro\": \"ISENTO\",\n                \"valorMulta\": \"----\",\n                \"anoExercicio\": \"2019\",\n                \"permiteEmissao\": \"N\"\n            },\n            {\n                \"valorTotal\": \"----\",\n                \"valorIpva\": \"ISENTO\",\n                \"dataVencimento\": \"29/11/2018\",\n                \"valorLicenciamento\": \"PAGO\",\n                \"valorSeguro\": \"ISENTO\",\n                \"valorMulta\": \"----\",\n                \"anoExercicio\": \"2018\",\n                \"permiteEmissao\": \"N\"\n            }\n        ],\n        \"debitosServicosVeiculo\": null\n    }\n}"
+						}
+					]
+				}
+			]
 		}
 	]
 }
