@@ -96,7 +96,7 @@ class PB {
                 "renavam": renavam,
                 ...dados
             };
-            // await browser.close();
+            await browser.close();
             return { resultado };
         };
     }

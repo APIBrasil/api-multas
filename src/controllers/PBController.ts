@@ -122,7 +122,7 @@ class PB {
             ...dados
         };
 
-        // await browser.close();
+        await browser.close();
 
         return { resultado };
         
