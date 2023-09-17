@@ -39,53 +39,89 @@ class PB {
         placa = placa.replace(/[^a-zA-Z0-9]/g, '');
         renavam = renavam.replace(/[^0-9]/g, '');
 
-
-        //GET all tables with=646
-        const tableSelector = 'table[width="648"]';
+        const tablesMultas = 'table[width="648"]';
+        const tablesDados = 'table[width="650"]';
 
         await page.goto(`${process.env.PB_URL}/BBDT_MULTABOLETO_CLIENTE/MultaBoleto?placa=${placa}&renavam=${renavam}&opcao=I&display=web&redirect=ok`);
 
         const tds = await page.$$eval('td[width="28%"]', tds => tds.map(td => td.innerText));
 
-        if(tds[1].includes('Erro:')) {
-            const error = tds[1].split('Erro: ')[1].split(' [ Voltar ]')[0] as string;
-            
-            return {error: error.replace(/(\r\n|\n|\r)/gm, "").replace('[ Voltar ]', '')};
-        }
-
-        const tables = await page.$$(tableSelector).then((tables) => {
+        const tableMultas = await page.$$(tablesMultas).then((tables) => {
             return tables;
         });
 
-        console.log(tables[0])
+        const tableDados = await page.$$(tablesDados).then((tables) => {
+            return tables;
+        });
 
         if (tds[1].includes('Erro:')) {
             const error = tds[1].split('Erro: ')[1].split(' [ Voltar ]')[0].replace(/(\r\n|\n|\r)/gm, "").replace('[ Voltar ]', '');
-        
-            // Se houver um erro, retorne um objeto JSON com a chave "error"
             return { error };
         }
 
-        //get all tr and tds from table[0]
-        const multas = await tables[0].$$eval('tr', trs => trs.map(tr => tr.innerText));
-        const dados = await tables[1].$$eval('tr', trs => trs.map(tr => tr.innerText));
+        const linha1 = await tableDados[1].$$eval('tr', trs => trs.map(tr => tr.innerText));
+        const condutor = linha1[0].split('\n');
 
-        console.log(multas)
-        console.log(dados)
+        const linha2 = await tableMultas[0].$$eval('tr', trs => trs.map(tr => tr.innerText));
+        const multas = linha2[0].split('\n');
 
-        const boleto = {}
-        // {
-        //     numero: boleto_multa[0],
-        //     vencimento: boleto_multa[1],
-        //     valor: boleto_multa[2],
-        //     situacao: boleto_multa[3],
-        //     data_pagamento: boleto_multa[4],
-        //     valor_pago: boleto_multa[5],
-        // }
+        const dadosPagamento = await tableDados[2].$$eval('tr', trs => trs.map(tr => tr.innerText));
+        const dadosPagamentoSplit = dadosPagamento[0].split('\n');
+
+        const object_multa = [] as any;
+        const objectPagamento = [] as any;
+
+        for (let i = 0; i < multas.length; i++) {
+
+            const element = multas[i].split('\t');
+            const orgao = element[0];
+
+            const valor = element[2];
+
+            if(typeof valor === 'string') {
+                const valor_decimal:number = Number(valor.replace(/[^0-9,]/g, '').replace(',', '.'));
+                object_multa.push({ orgao: orgao, valor: valor_decimal });
+            }
+
+        }
+        
+        for (let i = 0; i < dadosPagamentoSplit.length; i++) {
+            
+            objectPagamento.push({
+                'placa': dadosPagamentoSplit[1].split('\t')[0].trim(),
+                'chassi': dadosPagamentoSplit[2].split('\t')[0].trim(),
+                'renavam': dadosPagamentoSplit[3].split('\t')[0].trim(),
+                'data_vencimento': dadosPagamentoSplit[4].split('\t')[0].trim(),
+                'data_emissao' : dadosPagamentoSplit[5].split('\t')[0].trim(),
+                'valor_documento': dadosPagamentoSplit[8].split('\t')[0].trim()
+            });
+
+        }
+
+        const dados = {
+            "multas": object_multa,
+            "dados": [
+                {
+                    "nome": condutor[1].trim(),
+                    "documento": condutor[4].trim(),
+                    "nosso_numero": condutor[9].trim()
+                },
+                {
+
+                    "pagamento": objectPagamento[0]
+                }
+            ]
+        };
+
+        const resultado = {
+            "placa": placa,
+            "renavam": renavam,
+            ...dados
+        };
 
         // await browser.close();
 
-        return { placa, renavam , multas, dados};
+        return { resultado };
     }
 
 

@@ -2,15 +2,24 @@ declare class PB {
     index: (req: any, res: any) => Promise<any>;
     scrap: (placa: string, renavam: string) => Promise<{
         error: any;
-        placa?: undefined;
-        renavam?: undefined;
-        multas?: undefined;
-        dados?: undefined;
+        resultado?: undefined;
     } | {
-        placa: string;
-        renavam: string;
-        multas: any[];
-        dados: any[];
+        resultado: {
+            multas: any;
+            dados: ({
+                nome: any;
+                documento: any;
+                nosso_numero: any;
+                pagamento?: undefined;
+            } | {
+                pagamento: any;
+                nome?: undefined;
+                documento?: undefined;
+                nosso_numero?: undefined;
+            })[];
+            placa: string;
+            renavam: string;
+        };
         error?: undefined;
     }>;
 }
