@@ -9,6 +9,7 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 | MG           | Disponível         |     Operacional      |
 | AL           | Disponível         |     Operacional      |
 | PB           | Disponível         |     Operacional      |
+| GO           | Disponível         |     Operacional      |
 | SP           | Não disponível     | Não é possivel ainda |
 | SC           | Não disponível     | Em desenvolvimento   |
 | RJ           | Não disponível     | Não é possivel ainda |
