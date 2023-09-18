@@ -42,7 +42,6 @@ class Ms {
             const parts = response.split(/\s+/);
             // Explorar "00000023477EXISTEM" autuações em dataResponse
             const splitedForAutuacoes = response.indexOf('AUTUACOES') !== -1 ? response.split('AUTUACOES')[0].split(/\s+/) : false;
-            console.log(splitedForAutuacoes);
             if (splitedForAutuacoes) {
                 dataResponse['autuacoes'] = splitedForAutuacoes[5];
             }
@@ -73,7 +72,6 @@ class Ms {
             const matches = parts.filter((item) => {
                 return coresVeiculosBrasil.includes(item.toUpperCase());
             });
-            console.log(matches);
             if (matches.length > 0) {
                 dataResponse['cor'] = matches[0];
             }
@@ -91,6 +89,8 @@ class Ms {
             if (splitedForLic) {
                 dataResponse['licenciamento'] = splitedForLic[0];
             }
+            dataResponse['placa'] = placa;
+            dataResponse['renavam'] = renavam;
             // Partes contêm a string "MULTAS"
             const splitedForNumber = response.indexOf('MULTAS') !== -1 ? response.split('MULTAS')[1].split(/\s+/) : false;
             if (splitedForNumber) {

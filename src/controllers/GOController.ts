@@ -64,8 +64,8 @@ class Go {
 
             return { placa, renavam, debitos }
 
-        }catch(e){
-            return { message: 'Não foi possível consultar o veículo' };
+        }catch(e:any){
+            return { message: `Não foi possível encontrar o veículo ${placa} na base do DETRAN GO`, error: e?.message ? e?.message : null };
         }
     
     

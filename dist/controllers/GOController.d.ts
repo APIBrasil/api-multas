@@ -6,19 +6,25 @@ declare class Go {
         renavam: string;
         debitos: any;
         message?: undefined;
+        error?: undefined;
     } | {
         message: string;
+        error: any;
         placa?: undefined;
         renavam?: undefined;
         debitos?: undefined;
+    } | {
+        message: string;
     }>;
     consultaVeiculoPorPlacaRenavam: (placa: string, renavam: string, token: string) => Promise<{
         placa: string;
         renavam: string;
         debitos: any;
         message?: undefined;
+        error?: undefined;
     } | {
         message: string;
+        error: any;
         placa?: undefined;
         renavam?: undefined;
         debitos?: undefined;
