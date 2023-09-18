@@ -1,9 +1,10 @@
 import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 
+import { Request, Response } from 'express';
 class Go {
 
-    index = async (req: any, res: any) => {
+    index = async (req: Request, res: Response) => {
 
         const placa = req.body.placa as string;
         const renavam = req.body.renavam as string;

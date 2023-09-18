@@ -19,71 +19,97 @@ class Ms {
             res.status(200).json(multas);
         };
         this.scrap = async (placa, renavam) => {
-            // var i, x, n;
-            // var uri;
-            // var post_data;
-            // var target_id;
-            // var charset_html = document.inputEncoding.toLowerCase();
-            // var charset_esp = [
-            //         "utf-8",
-            //         "windows-1250",
-            //         "windows-1253",
-            //         "windows-1254",
-            //         "windows-1255",
-            //         "windows-1256",
-            //         "windows-1257",
-            //         "iso-8859-2",
-            //         "iso-8859-4",
-            //         "iso-8859-6",
-            //         "iso-8859-7",
-            //         "iso-8859-8",
-            //         "iso-8859-8-i",
-            //         "iso-8859-9",
-            //         "iso-8859-13",
-            //         "euc-kr"
-            // ];
             const headers = {
                 'Host': 'web.detran.ms.gov.br',
                 'Origin': 'https://www.meudetran.ms.gov.br',
                 'Referer': 'https://www.meudetran.ms.gov.br/veiculo_filtro_cnt/',
                 'Dtn-Auth-Token': '9851B392-41DF-8060-C3A2-81240E3AEBD6',
                 'Content-Type': 'text/plain',
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
             };
             let data = `AEANPA10                                                                                            ${placa}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1${renavam}`;
             const request = await utils_1.default.request(`${process.env.MS_URL}`, 'POST', headers, data);
-            // const response = await request;
-            //response replace +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            const dataResponse = {};
             const response = await request;
-            const responseClear = await request.replace(/(\+)/g, ' ').replace(/(\n)/g, ' ').replace(/(\t)/g, ' ').replace(/(\r)/g, ' ').replace(/(\s{2,})/g, ' ').trim();
-            console.log(response);
-            const dataResponse = [];
-            //RENAVAM INFORMADO NAO PERTENCE
+            // RENAAM INFORMADO NAO PERTENCE
             if (response.indexOf('RENAVAM INFORMADO NAO PERTENCE') !== -1) {
-                return { error: `O renavam ${renavam} não pertence a placa ${placa}` };
+                return { error: `O renavam ${renavam} não pertence à placa ${placa}` };
             }
-            //NAO CADASTRADO NA BASE
+            // NAO CADASTRADO NA BASE
             if (response.indexOf('NAO CADASTRADO NA BASE') !== -1) {
                 return { error: `O veículo ${placa} não está cadastrado na base MS` };
             }
-            response.split(' ').forEach((item) => {
-                if (item !== '') {
-                    dataResponse.push(item);
-                }
+            // Dividir o texto em partes
+            const parts = response.split(/\s+/);
+            // Explorar "00000023477EXISTEM" autuações em dataResponse
+            const splitedForAutuacoes = response.indexOf('AUTUACOES') !== -1 ? response.split('AUTUACOES')[0].split(/\s+/) : false;
+            console.log(splitedForAutuacoes);
+            if (splitedForAutuacoes) {
+                dataResponse['autuacoes'] = splitedForAutuacoes[5];
+            }
+            const coresVeiculosBrasil = [
+                "BRANCO",
+                "BRANCA",
+                "PRETO",
+                "PRETA",
+                "PRATA",
+                "CINZA",
+                "VERMELHO",
+                "AZUL",
+                "VERDE",
+                "AMARELO",
+                "MARROM",
+                "BEGE",
+                "DOURADO",
+                "LARANJA",
+                "ROSA",
+                "ROXO",
+                "VINHO",
+                "FANTASIA",
+                "OUTRA",
+                "OUTRO",
+                "NAO INFORMADA"
+            ];
+            // Procurar cores em parts
+            const matches = parts.filter((item) => {
+                return coresVeiculosBrasil.includes(item.toUpperCase());
             });
-            //responseFormated split coma spaces and break lines permitir acentos e caracteres especiais, pontuação e virgula
-            // const respnseFormated = response.split(/[\s,]+/).filter(Boolean);
-            // const respnseFormated = response.split(/[\s,]+/).join(' ').replace(/[^a-zA-Z0-9À-ú\s]/g, '');
-            // const respnseFormated = response.split(/[\s,]+/).join(' ').replace(/[^a-zA-Z0-9À-ú\s]/g, '').trim();
-            const respnseFormated = response
-                .split(/[\s,]+/)
-                .join(' ')
-                .replace(/[^a-zA-Z0-9À-ú\s,.]/g, '') // Adicionamos , e . na classe de caracteres
-                .trim();
-            const regexPattern = /(\d+,\d{2})/g;
-            const multas = response.match(regexPattern);
-            console.log(respnseFormated);
-            return { response, responseClear, dataResponse, respnseFormated, multas };
+            console.log(matches);
+            if (matches.length > 0) {
+                dataResponse['cor'] = matches[0];
+            }
+            // IPVA
+            const splitedForIpva = response.indexOf('IPVA') !== -1 ? response.split('IPVA')[1].split(/\s+/) : false;
+            if (splitedForIpva) {
+                dataResponse['ipva'] = splitedForIpva[1];
+            }
+            //"NAO HA DEBITOS PARA ESTE VEICULO"
+            if (response.indexOf('NAO HA DEBITOS PARA ESTE VEICULO') !== -1) {
+                return { error: `Não há débitos para o veículo ${placa}` };
+            }
+            // LIC.:
+            const splitedForLic = response.indexOf('LIC.:') !== -1 ? response.split('LIC.:')[1].split(/\s+/) : false;
+            if (splitedForLic) {
+                dataResponse['licenciamento'] = splitedForLic[0];
+            }
+            // Partes contêm a string "MULTAS"
+            const splitedForNumber = response.indexOf('MULTAS') !== -1 ? response.split('MULTAS')[1].split(/\s+/) : false;
+            if (splitedForNumber) {
+                const multas = splitedForNumber.filter((item) => {
+                    // Transforme a string em número decimal com 2 casas decimais
+                    item = parseFloat(item).toFixed(2);
+                    return item > 0;
+                });
+                //filter multas com valores diferentes
+                const multasValues = splitedForNumber.filter((item) => {
+                    // Transforme a string em número decimal com 2 casas decimais
+                    item = parseFloat(item).toFixed(2);
+                    return item > 0;
+                }).filter((item, index, self) => {
+                    return index === self.indexOf(item);
+                });
+                dataResponse['valores'] = multasValues.map((item) => utils_1.default.convertStringToDecimal(item));
+            }
+            return dataResponse;
         };
     }
 }

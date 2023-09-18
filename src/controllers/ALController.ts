@@ -2,9 +2,11 @@ import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
 
+import { Request, Response } from 'express';
+
 class Al {
 
-    index = async (req: any, res: any) => {
+    index = async (req: Request, res: Response) => {
     
         const placa = req.body.placa as string;
         const renavam = req.body.renavam as string;
