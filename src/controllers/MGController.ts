@@ -60,11 +60,11 @@ class Mg {
 
         try {
             
-            await page.waitForSelector(linkPadraoSelector, { timeout: 5000 });
+            await page.waitForSelector(linkPadraoSelector, { timeout: 1000 });
 
         } catch (error) {
             await browser.close();
-            return { placa, renavam, multas: [], message: 'Não foi possível encontrar multas para este veículo.' };
+            return { placa, renavam, message: 'Não foi possível encontrar multas para este veículo.' };
         }
 
         const linkPadrao = await page.$(linkPadraoSelector);

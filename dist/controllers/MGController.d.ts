@@ -4,8 +4,8 @@ declare class Mg {
     scrap: (placa: string, renavam: string) => Promise<{
         placa: string;
         renavam: string;
-        multas: never[];
         message: string;
+        multas?: undefined;
     } | {
         placa: string;
         renavam: string;

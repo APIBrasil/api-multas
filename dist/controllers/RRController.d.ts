@@ -1,17 +1,10 @@
 import { Request, Response } from 'express';
-declare class Mg {
+declare class Rr {
     index: (req: Request, res: Response) => Promise<Response<any, Record<string, any>> | undefined>;
     scrap: (placa: string, renavam: string) => Promise<{
         placa: string;
         renavam: string;
-        multas: never[];
-        message: string;
-    } | {
-        placa: string;
-        renavam: string;
-        multas: any[];
-        message?: undefined;
     }>;
 }
-export declare const mg: Mg;
+export declare const rr: Rr;
 export {};

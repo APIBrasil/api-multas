@@ -46,11 +46,11 @@ class Mg {
             const buttonSubmit = buttons[1];
             await (buttonSubmit === null || buttonSubmit === void 0 ? void 0 : buttonSubmit.click());
             try {
-                await page.waitForSelector(linkPadraoSelector, { timeout: 5000 });
+                await page.waitForSelector(linkPadraoSelector, { timeout: 1000 });
             }
             catch (error) {
                 await browser.close();
-                return { placa, renavam, multas: [], message: 'Não foi possível encontrar multas para este veículo.' };
+                return { placa, renavam, message: 'Não foi possível encontrar multas para este veículo.' };
             }
             const linkPadrao = await page.$(linkPadraoSelector);
             await (linkPadrao === null || linkPadrao === void 0 ? void 0 : linkPadrao.click());
