@@ -29,6 +29,7 @@
 		"express": "^4.18.2",
 		"json-to-table": "^4.2.1",
 		"link-module-alias": "^1.2.0",
+		"nocaptchaai-puppeteer": "^2.1.0",
 		"puppeteer": "^21.2.1"
 	},
 	"_moduleAliases": {

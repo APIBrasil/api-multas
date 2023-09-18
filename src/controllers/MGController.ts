@@ -36,7 +36,7 @@ class Mg {
         });
         
         const page = await browser.newPage();
-
+        
         await page.goto(`${process.env.MG_URL}`);
 
         const placaSelector = '#placa';

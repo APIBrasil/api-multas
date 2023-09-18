@@ -11,6 +11,8 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 | PB           | Disponível         |     Operacional      |
 | GO           | Disponível         |     Operacional      |
 | SP           | Não disponível     | Não é possivel ainda |
+| PB           | Não disponível     | Em desenvolvimento   |
+| MS           | Não disponível     | Em desenvolvimento   |
 | SC           | Não disponível     | Em desenvolvimento   |
 | RJ           | Não disponível     | Não é possivel ainda |
 

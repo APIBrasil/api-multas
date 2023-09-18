@@ -34,7 +34,6 @@ class Go {
             });
 
             const token = bearerToken.access_token;
-
             const consultarVeiculoPorPlacaRenavam = await this.consultaVeiculoPorPlacaRenavam(placa, renavam, token);
 
             return consultarVeiculoPorPlacaRenavam;
