@@ -21,14 +21,21 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 apt update -y && apt upgrade -y && apt install git curl -y 
 ```
 
-# Instalando Node 18
+# Instalando Node 18 Linux
 ```bash
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash  && source ~/.profile  && nvm install 18 && nvm use 18
 ```
-# Instalando Yarn
+
+# Instalando Yarn Linux
 ```bash
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt update -y && sudo apt install yarn -y && yarn global add pm2
 ```
+
+# Instalando Node e Yarn Windows
+
+https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable
+
+https://nodejs.org/pt-br/download
 
 # Instalação API
 ```bash 
@@ -85,3 +92,5 @@ O response pode variar de acordo com o estado.
     ]
 }
 ```
+# Observações
+⚠️ Essa API é apenas parte de um estudo pessoal, use em produção por sua conta e risco, lembre-se essa API se basea em técnicas de web scrap para obter os dados em transformar em JSON, se o DETRAN do seu estado alterar algo nos avise para que possamos corrgir. 
