@@ -8,19 +8,20 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 |---------------|-------------------|----------------------|
 |    Detran AC	|Em desenvolvimento |                      |
 |    Detran AL	|	DISPONÍVEL      |    Operacional       |   
+|    Detran DF	|   DISPONÍVEL      |    Operacional       |
+|    Detran GO	|	DISPONÍVEL      |    Operacional       |
+|    Detran MG	|	DISPONÍVEL      |    Operacional       |
+|    Detran MS	|	DISPONÍVEL      |    Operacional       |
+|    Detran PB	|	DISPONÍVEL      |    Operacional       |
+|    Detran PE	|   DISPONÍVEL      |    Operacional       |
+|    Detran SE	|   DISPONÍVEL      |    Operacional       |
 |    Detran AM	|Em desenvolvimento |                      |
 |    Detran BA	|Em desenvolvimento |                      |
 |    Detran CE	|Em desenvolvimento |                      |
-|    Detran DF	|Em desenvolvimento |                      |
 |    Detran ES	|Em desenvolvimento |                      |
-|    Detran GO	|	DISPONÍVEL      |    Operacional       |
 |    Detran MA	|Em desenvolvimento |                      |
-|    Detran MG	|	DISPONÍVEL      |    Operacional       |
-|    Detran MS	|	DISPONÍVEL      |    Operacional       |
 |    Detran MT	|Em desenvolvimento |                      |
 |    Detran PA	|Em desenvolvimento |                      |
-|    Detran PB	|	DISPONÍVEL      |    Operacional       |
-|    Detran PE	|Em desenvolvimento |                      |
 |    Detran PR	|Em desenvolvimento |                      |
 |    Detran RJ	|Em desenvolvimento |                      |
 |    Detran RN	|Em desenvolvimento |                      |
@@ -28,7 +29,6 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 |    Detran RR	|Em desenvolvimento |                      |
 |    Detran RS	|Em desenvolvimento |                      |
 |    Detran SC	|Em desenvolvimento |                      |
-|    Detran SE	|Em desenvolvimento |                      |
 |    Detran SP	|Em desenvolvimento |                      |
 |    Detran TO  |Em desenvolvimento |                      |
 

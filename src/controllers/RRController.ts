@@ -2,6 +2,8 @@ import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
 
+import {solveCaptcha} from 'nocaptchaai-puppeteer';
+
 import { Request, Response } from 'express';
 
 class Rr {
@@ -38,19 +40,30 @@ class Rr {
         });
         
         const page = await browser.newPage();
-        
         await page.goto(`${process.env.RR_URL}`);
-
-        //input from atribute title
-        const placaSelector = 'Placa';
-        
-        const renavamSelector = '#renavam';
-        const linkPadraoSelector = '.link-padrao';
-        const buttonsSelector = 'button[type="submit"]';
-
-        const inputPlaca = await page.$eval(placaSelector, el => el.getAttribute('title'));
         
 
+        // console.log(solve);
+
+        //get input placa from placeholder value
+        const inputPlacaSelect = await page.$('input[placeholder="BWC1140"]');
+        const inputRenavamSelect = await page.$('input[placeholder="12345678910"]');
+        const buttonSubmit = await page.$('button[id="submeter"]');
+
+        console.log(inputPlacaSelect);
+
+        //set placa value
+        await inputPlacaSelect?.type(placa);
+
+        //set renavam value
+        await inputRenavamSelect?.type(renavam);
+
+        //click submit button
+        await buttonSubmit?.click();
+
+        const solve = await solveCaptcha(page, 'jhowbhz-6a18c640-af9b-c170-01d3-51c5aa795610', 'u124', 'free', true);
+
+        console.log(solve);
 
         return { placa, renavam };
     }
