@@ -66,7 +66,16 @@ git clone https://github.com/APIBrasil/api-multas.git && cd /api-multas
 cp .env-exemplo .env && yarn && yarn start
 ```
 
-# Usando Javascript
+# Rodando em background
+```bash
+yarn add pm2 --global
+```
+
+```bash
+pm2 start dist/index.js --name=API-MULTAS
+```
+
+# Consumindo com Javascript
 ```npm i api-multas```
 
 ```ts
