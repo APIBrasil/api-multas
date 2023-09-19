@@ -4,18 +4,33 @@
 # Estados suportados
 Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados, se quiser sugerir um estado, abra uma PR
 
-| Estados      | Status             | Situação             |
-| -------------| ------------------ | ---------------------|
-| MG           | Disponível         |     Operacional      |
-| AL           | Disponível         |     Operacional      |
-| PB           | Disponível         |     Operacional      |
-| GO           | Disponível         |     Operacional      |
-| MS           | Disponível         |     Operacional      |
-| MT           | Não disponível     | Não é possivel ainda |
-| SP           | Não disponível     | Não é possivel ainda |
-| PB           | Não disponível     | Em desenvolvimento   |
-| SC           | Não disponível     | Em desenvolvimento   |
-| RJ           | Não disponível     | Não é possivel ainda |
+|    DETRANS    |   SITUAÇÃO        |   DISPONIBILIDADE    |
+|---------------|-------------------|----------------------|
+|    Detran AC	|Em desenvolvimento |                      |
+|    Detran AL	|	DISPONÍVEL      |    Operacional       |   
+|    Detran DF	|   DISPONÍVEL      |    Operacional       |
+|    Detran GO	|	DISPONÍVEL      |    Operacional       |
+|    Detran MG	|	DISPONÍVEL      |    Operacional       |
+|    Detran MS	|	DISPONÍVEL      |    Operacional       |
+|    Detran PB	|	DISPONÍVEL      |    Operacional       |
+|    Detran PE	|   DISPONÍVEL      |    Operacional       |
+|    Detran SE	|   DISPONÍVEL      |    Operacional       |
+|    Detran AM	|Em desenvolvimento |                      |
+|    Detran BA	|Em desenvolvimento |                      |
+|    Detran CE	|Em desenvolvimento |                      |
+|    Detran ES	|Em desenvolvimento |                      |
+|    Detran MA	|Em desenvolvimento |                      |
+|    Detran MT	|Em desenvolvimento |                      |
+|    Detran PA	|Em desenvolvimento |                      |
+|    Detran PR	|Em desenvolvimento |                      |
+|    Detran RJ	|Em desenvolvimento |                      |
+|    Detran RN	|Em desenvolvimento |                      |
+|    Detran RO	|Em desenvolvimento |                      |
+|    Detran RR	|Em desenvolvimento |                      |
+|    Detran RS	|Em desenvolvimento |                      |
+|    Detran SC	|Em desenvolvimento |                      |
+|    Detran SP	|Em desenvolvimento |                      |
+|    Detran TO  |Em desenvolvimento |                      |
 
 # Dependencias (Linux)
 ```bash
