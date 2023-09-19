@@ -29,7 +29,6 @@ class Pr {
                 'Access-Control-Allow-Headers': 'Content-Type, Content-Range, Content-Disposition, Content-Description, Origin, X-Requested-With, Accept',
                 'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
                 'Access-Control-Allow-Origin': '*',
-                // 'Authorization': '681752:pCZKSPPKgkdFidfr6nJ4ADBYUCc=',
                 'Connection': 'Keep-Alive',
                 'Host': 'www.wsutils.detran.pr.gov.br',
                 'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 9; SM-G973N Build/PQ3A.190605.05171606)',

@@ -19,6 +19,7 @@
 		"typescript": "^4.9.3"
 	},
 	"dependencies": {
+		"2captcha": "^3.0.7",
 		"@types/axios": "^0.14.0",
 		"@types/cors": "^2.8.14",
 		"@types/dotenv": "^8.2.0",
