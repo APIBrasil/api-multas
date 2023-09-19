@@ -66,6 +66,31 @@ git clone https://github.com/APIBrasil/api-multas.git && cd /api-multas
 cp .env-exemplo .env && yarn && yarn start
 ```
 
+# Usando Javascript
+```npm i api-multas```
+
+```ts
+import ApiMultas from 'api-multas'
+
+(async () => {
+
+    const host = 'http://localhost:2222';
+    const token = '1234567890';
+
+    const api = new ApiMultas();
+
+    const request = await api.multas('mg', host, token, {
+        placa: 'ABC1234',
+        renavam: '123456789'
+    });
+
+    console.log(request);
+
+})();
+```
+
+https://www.npmjs.com/package/api-multas
+
 # Exemplos de requests e respostas
 ### Endpoint
 
