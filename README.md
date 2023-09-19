@@ -114,4 +114,4 @@ O response pode variar de acordo com o estado.
 
 ## License
 
-MIT © [Nicolas Gryman](http://ngryman.sh)
+MIT © [APIBrasil](http://jhowbhz.com)
