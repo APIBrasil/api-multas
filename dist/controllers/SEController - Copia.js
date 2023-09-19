@@ -17,7 +17,7 @@ class Se {
         };
         this.scrap = async (renavam) => {
             try {
-                const payload = await utils_1.default.request(`${process.env.SE_URL}${renavam}/0`, 'GET', {
+                const payload = await utils_1.default.request(`${process.env.SE_URL}/${renavam}/0`, 'GET', {
                     'Accept-Encoding': 'gzip',
                     'Host': 'www.detran.se.gov.br',
                     'User-Agent': 'okhttp/3.12.12',

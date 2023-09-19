@@ -9,7 +9,7 @@ class Se {
 
         const renavam = req.body.renavam as string;
         
-        if(renavam.length !== 11 || !renavam.match(/^[0-9]+$/)){
+        if(!renavam.match(/^[0-9]+$/)){
             return res.status(400).json({ message: 'Renavam inválido' });
         }
         

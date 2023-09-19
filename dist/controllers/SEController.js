@@ -9,7 +9,7 @@ class Se {
     constructor() {
         this.index = async (req, res) => {
             const renavam = req.body.renavam;
-            if (renavam.length !== 11 || !renavam.match(/^[0-9]+$/)) {
+            if (!renavam.match(/^[0-9]+$/)) {
                 return res.status(400).json({ message: 'Renavam inválido' });
             }
             const multas = await this.scrap(renavam);
