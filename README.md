@@ -4,7 +4,35 @@ A ideia desse repositório é centralizar e obter dados de Multas de todos os De
 ## Status do Scrap
 Você pode acompanhar o status de cada scrap no link abaixo
 
-<a href="https://status.apibrasil.com.br/status/whatsapp"> https://status.apibrasil.com.br/status/whatsapp </a>
+<a href="https://status.apibrasil.com.br/status/whatsapp"> https://status.apibrasil.com.br </a>
+
+## Consumindo com Javascript
+```bash
+yarn add api-multas
+```
+
+```ts
+import ApiMultas from 'api-multas'
+
+(async () => {
+
+    const host = 'http://localhost:2222';
+    const token = '1234567890';
+
+    const api = new ApiMultas();
+
+    const request = await api.multas('mg', host, token, {
+        placa: 'ABC1234',
+        renavam: '123456789'
+    });
+
+    console.log(request);
+
+})();
+```
+
+Link do pacote
+<a href="https://www.npmjs.com/package/api-multas" target="_blank"> https://www.npmjs.com/package/api-multas </a>
 
 ## Estados suportados
 Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados, se quiser sugerir um estado, abra uma PR
@@ -76,7 +104,7 @@ git clone https://github.com/APIBrasil/api-multas.git && cd /api-multas
 cp .env-exemplo .env && yarn && yarn start
 ```
 
-# Rodando em Background
+## Rodando em Background
 ```bash
 yarn add pm2 --global
 ```
@@ -85,42 +113,15 @@ yarn add pm2 --global
 pm2 start dist/index.js --name=API-MULTAS
 ```
 
-## Consumindo com Javascript
-```npm i api-multas```
-
-```ts
-import ApiMultas from 'api-multas'
-
-(async () => {
-
-    const host = 'http://localhost:2222';
-    const token = '1234567890';
-
-    const api = new ApiMultas();
-
-    const request = await api.multas('mg', host, token, {
-        placa: 'ABC1234',
-        renavam: '123456789'
-    });
-
-    console.log(request);
-
-})();
-```
-
-https://www.npmjs.com/package/api-multas
-
 ## Exemplos de requests e respostas
-### Endpoint
-
 ```
 [POST] https://localhost:2222/multas/mg
 ```
 ```
 [POST] https://localhost:2222/multas/al
 ```
-## Payload
-O payload é padrão para todos os estados.
+## Payloads de request padrão 
+O payload pode variar de acordo com o estado.
 ```json
 { 
     "placa":"ABC1234",
@@ -128,7 +129,7 @@ O payload é padrão para todos os estados.
 }
 ```
 
-## Response
+## Response da request padrão
 O response pode variar de acordo com o estado.
 ```json
 {
@@ -153,7 +154,7 @@ O response pode variar de acordo com o estado.
 }
 ```
 
-## Observações
+## Observações importantes
 ⚠️ Essa API é apenas parte de um estudo pessoal, use em produção por sua conta e risco, lembre-se essa API se basea em técnicas de web scrap para obter os dados em transformar em JSON, se o DETRAN do seu estado alterar algo nos avise para que possamos corrgir. 
 
 ## License
