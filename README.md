@@ -4,7 +4,7 @@ A ideia desse repositório é centralizar e obter dados de Multas de todos os De
 ## Status do Scrap
 Você pode acompanhar o status de cada scrap no link abaixo
 
-https://status.apibrasil.com.br/status/whatsapp
+<a href="https://status.apibrasil.com.br/status/whatsapp"> https://status.apibrasil.com.br/status/whatsapp </a>
 
 ## Estados suportados
 Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados, se quiser sugerir um estado, abra uma PR
