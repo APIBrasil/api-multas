@@ -33,7 +33,6 @@ class Pe {
                 'Host': 'online7.detran.pe.gov.br',
                 'User-Agent': 'Appcelerator Titanium/8.3.1 (SM-G973N; Android API Level: 28; pt-PT;)',
                 'X-Requested-With': 'XMLHttpRequest',
-                // 'X-Titanium-Id': 'd39b172b-aa83-40c3-9000-7808b7e6998d'
             }, null);
 
             const response = payload;

@@ -42,28 +42,16 @@ class Rr {
         const page = await browser.newPage();
         await page.goto(`${process.env.RR_URL}`);
         
-
-        // console.log(solve);
-
-        //get input placa from placeholder value
         const inputPlacaSelect = await page.$('input[placeholder="BWC1140"]');
         const inputRenavamSelect = await page.$('input[placeholder="12345678910"]');
         const buttonSubmit = await page.$('button[id="submeter"]');
 
-        console.log(inputPlacaSelect);
-
-        //set placa value
         await inputPlacaSelect?.type(placa);
-
-        //set renavam value
         await inputRenavamSelect?.type(renavam);
 
-        //click submit button
         await buttonSubmit?.click();
 
-        const solve = await solveCaptcha(page, 'jhowbhz-6a18c640-af9b-c170-01d3-51c5aa795610', 'u124', 'free', true);
-
-        console.log(solve);
+        //PAUSE FOR CAPTCHA
 
         return { placa, renavam };
     }
