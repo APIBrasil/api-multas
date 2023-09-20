@@ -1,7 +1,12 @@
 # 💵 API de Multas Brasil 
-### A ideia desse repositório é obter dados de Multas de todos os Detrans, através de Web Scrap e retornar os dados das multas em JSON
+A ideia desse repositório é centralizar e obter dados de Multas de todos os Detrans, através da técnica de Web Scraping e retornar os dados das multas em JSON
 
-# Estados suportados
+## Status do Scrap
+Você pode acompanhar o status de cada scrap no link abaixo
+
+https://status.apibrasil.com.br/status/whatsapp
+
+## Estados suportados
 Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados, se quiser sugerir um estado, abra uma PR
 
 |    DETRANS    |   SITUAÇÃO        |   DISPONIBILIDADE    |
@@ -32,28 +37,33 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 |    Detran SP	|Em desenvolvimento |                      |
 |    Detran TO  |Em desenvolvimento |                      |
 
-# Dependencias (Linux)
+## Dependencias (Linux)
 ```bash
 apt update -y && apt upgrade -y && apt install git curl -y 
 ```
 
-# Instalando Node 18 Linux
+## Instalando Node 18 (Linux)
 ```bash
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash  && source ~/.profile  && nvm install 18 && nvm use 18
 ```
 
-# Instalando Yarn Linux
+## Instalando Yarn (Linux)
 ```bash
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt update -y && sudo apt install yarn -y && yarn global add pm2
 ```
 
-# Instalando Node e Yarn Windows
+## Instalando Node e Yarn (Windows)
+Você irá precisar do Node 18+ para utilizar essa API
+
+Dowload Yarn
 
 https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable
 
+Download para Windows
+
 https://nodejs.org/pt-br/download
 
-# Instalação API
+## Instalação API (Linux)
 ```bash 
 cd /opt/
 ```
@@ -66,7 +76,7 @@ git clone https://github.com/APIBrasil/api-multas.git && cd /api-multas
 cp .env-exemplo .env && yarn && yarn start
 ```
 
-# Rodando em background
+# Rodando em Background
 ```bash
 yarn add pm2 --global
 ```
@@ -75,7 +85,7 @@ yarn add pm2 --global
 pm2 start dist/index.js --name=API-MULTAS
 ```
 
-# Consumindo com Javascript
+## Consumindo com Javascript
 ```npm i api-multas```
 
 ```ts
@@ -100,7 +110,7 @@ import ApiMultas from 'api-multas'
 
 https://www.npmjs.com/package/api-multas
 
-# Exemplos de requests e respostas
+## Exemplos de requests e respostas
 ### Endpoint
 
 ```
@@ -109,7 +119,7 @@ https://www.npmjs.com/package/api-multas
 ```
 [POST] https://localhost:2222/multas/al
 ```
-### Payload
+## Payload
 O payload é padrão para todos os estados.
 ```json
 { 
@@ -118,7 +128,7 @@ O payload é padrão para todos os estados.
 }
 ```
 
-### Response
+## Response
 O response pode variar de acordo com o estado.
 ```json
 {
