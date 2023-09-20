@@ -3,6 +3,7 @@ import validation from '../validations/validation';
 import utils from 'src/utils/utils';
 
 import { Request, Response } from 'express';
+import { se } from './SEController';
 
 class PB {
 
@@ -45,11 +46,31 @@ class PB {
 
         await page.goto(`${process.env.PB_URL}/BBDT_MULTABOLETO_CLIENTE/MultaBoleto?placa=${placa}&renavam=${renavam}&opcao=I&display=web&redirect=ok`);
 
-        const tds = await page.$$eval('td[width="28%"]', tds => tds.map(td => td.innerText));
+        // <td height="92"><div align="center">
+        // <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+        // <a name="   CODATA-Cia.Proc.de Dados do Estado da Paraiba "></a>
+        // <a name="   Ambiente.: UNIX acessando dados on-line       "></a>
+        // <a name="              Baixa Plataforma - Blade           "></a>
+        // <a name="   Linguagem: JAVA                               "></a>
+        // <a name="   Autor....: Paulo Cezar                        "></a>
+        // <a name="   Autor....: Christhiny e Gliberto              "></a>
+        // <a name="   Versao...: 2.0 19/Fev/2002                    "></a>
+        // <br>
+        // Erro: Informe Codigo do Renavam                                             <br>Dados Inválidos!<br>Consulta realizada em 19/09/2023<br>
+        // <br>
+        // <br>
+        // <a href="javascript:history.back()"><font color="#000066"><strong>[ Voltar</strong></font></a><strong><font color="#000066">
+        // ]</font></strong><br>
+        // </font></div></td>
 
-        if(tds[1].includes('Erro:')) {
-            const error = tds[1].split('Erro: ')[1].split(' [ Voltar ]')[0] as string;
-            return {error: error.replace(/(\r\n|\n|\r)/gm, "").replace('[ Voltar ]', '')};
+        //if Erro: Informe Codigo do Renavam split <br>
+        const errorSelect = 'table[width="644"] td[height="92"]';
+
+        const errorRenavam = await page.$$eval(errorSelect, tds => tds.map(td => td.innerText));
+        const errorClear = errorRenavam[1].replace(/(\r\n|\n|\r)/gm, "");
+
+        if(errorClear.length > 1) {
+            return {error:  errorClear};
         }
 
         const tableMultas = await page.$$(tablesMultas).then((tables) => {
@@ -64,11 +85,6 @@ class PB {
             return tables;
         });
 
-        if (tds[1].includes('Erro:')) {
-            const error = tds[1].split('Erro: ')[1].split(' [ Voltar ]')[0].replace(/(\r\n|\n|\r)/gm, "").replace('[ Voltar ]', '');
-            return { error };
-        }
-
         const linha1 = await tableDados[1].$$eval('tr', trs => trs.map(tr => tr.innerText));
         const condutor = linha1[0].split('\n');
 
@@ -78,11 +94,7 @@ class PB {
         const dadosPagamento = await tableDados[2].$$eval('tr', trs => trs.map(tr => tr.innerText));
         const pagamento = dadosPagamento[0].split('\n');
 
-        // const linha3 = await tablePagamento[0].$$eval('tr', trs => trs.map(tr => tr.innerText)); 
         const linha4 = await tablePagamento[1].$$eval('tr', trs => trs.map(tr => tr.innerText)); 
-
-        console.log(linha4);
-
         const codigoBarras = linha4[0].split('\n')[0];
 
         const object_multa = [] as any;
@@ -124,7 +136,7 @@ class PB {
             ...dados
         };
 
-        await browser.close();
+        // await browser.close();
 
         return { resultado };
         
