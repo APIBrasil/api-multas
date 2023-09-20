@@ -83,12 +83,10 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "
 ## Instalando Node e Yarn (Windows)
 Você irá precisar do Node 18+ para utilizar essa API
 
-Dowload Yarn
-
+#### Dowload Yarn
 https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable
 
-Download para Windows
-
+#### Download Node
 https://nodejs.org/pt-br/download
 
 ## Instalação API (Linux)
