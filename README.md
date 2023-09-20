@@ -39,23 +39,24 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 
 |    DETRANS    |   SITUAÇÃO        |   DISPONIBILIDADE    |
 |---------------|-------------------|----------------------|
-|    Detran AC	|Em desenvolvimento |                      |
-|    Detran AL	|	DISPONÍVEL      |    Operacional       |   
-|    Detran DF	|   DISPONÍVEL      |    Operacional       |
-|    Detran GO	|	DISPONÍVEL      |    Operacional       |
 |    Detran MG	|	DISPONÍVEL      |    Operacional       |
-|    Detran MS	|	DISPONÍVEL      |    Operacional       |
+|    Detran AL	|	DISPONÍVEL      |    Operacional       |   
 |    Detran PB	|	DISPONÍVEL      |    Operacional       |
+|    Detran GO	|	DISPONÍVEL      |    Operacional       |
+|    Detran MA	|   DISPONÍVEL      |    Operacional       
+|    Detran DF	|   DISPONÍVEL      |    Operacional       |
+|    Detran MS	|	DISPONÍVEL      |    Operacional       |
 |    Detran PE	|   DISPONÍVEL      |    Operacional       |
 |    Detran SE	|   DISPONÍVEL      |    Operacional       |
+|    Detran PR	|   DISPONÍVEL      |    Operacional       |
+|    Detran PI	|Em desenvolvimento |                      |
+|    Detran AC	|Em desenvolvimento |                      |
 |    Detran AM	|Em desenvolvimento |                      |
 |    Detran BA	|Em desenvolvimento |                      |
 |    Detran CE	|Em desenvolvimento |                      |
 |    Detran ES	|Em desenvolvimento |                      |
-|    Detran MA	|Em desenvolvimento |                      |
 |    Detran MT	|Em desenvolvimento |                      |
 |    Detran PA	|Em desenvolvimento |                      |
-|    Detran PR	|Em desenvolvimento |                      |
 |    Detran RJ	|Em desenvolvimento |                      |
 |    Detran RN	|Em desenvolvimento |                      |
 |    Detran RO	|Em desenvolvimento |                      |
