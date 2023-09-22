@@ -62,7 +62,7 @@ Link do pacote
 ## Estados suportados
 Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados, se quiser sugerir um estado, abra uma PR
 
-|    DETRANS    |   SITUAÇÃO        |   DISPONIBILIDADE    |    OBSERVAÇÕES              |
+|    DETRAN    |   SITUAÇÃO        |   DISPONIBILIDADE    |    OBSERVAÇÕES              |
 |---------------|-------------------|----------------------|------------------------------
 |    Detran MG	|	DISPONÍVEL      |    Operacional       |                             |
 |    Detran AL	|	DISPONÍVEL      |    Operacional       |                             |   
@@ -74,14 +74,14 @@ Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados,
 |    Detran PE	|   DISPONÍVEL      |    Operacional       |                             |
 |    Detran SE	|   DISPONÍVEL      |    Operacional       |                             |
 |    Detran PR	|   DISPONÍVEL      |    Operacional       |                             |
-|    Detran PI	|   DISPONÍVEL      |    Operacional       | Nacessário informar webhook |
+|    Detran PI	|   DISPONÍVEL      |    Operacional       | Necessário informar webhook |
 |    Detran AC	|Em desenvolvimento |                      |                             |
 |    Detran AM	|Em desenvolvimento |                      |                             |
 |    Detran BA	|Em desenvolvimento |                      |                             |
 |    Detran CE	|Em desenvolvimento |                      |                             |
 |    Detran ES	|Em desenvolvimento |                      |                             |
 |    Detran MT	|Em desenvolvimento |                      |                             |
-|    Detran PA	|Em desenvolvimento |                      |                             |
+|    Detran PA	|   DISPONÍVEL      |    Operacional       | Necessário informar webhook |
 |    Detran RJ	|Em desenvolvimento |                      |                             |
 |    Detran RN	|Em desenvolvimento |                      |                             |
 |    Detran RO	|Em desenvolvimento |                      |                             |
