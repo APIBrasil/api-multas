@@ -1,9 +1,8 @@
 import utils from '../utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
-import { Request, Response } from 'express';
-
 import * as Captcha from '2captcha-ts';
+import { Request, Response } from 'express';
 class Pa {
 
     index = async (req: Request, res: Response) => {
@@ -13,19 +12,24 @@ class Pa {
         const webhook = req.body.webhook as string;
         const twocaptchaapikey = req.body.twocaptchaapikey as string;
 
-        if(!twocaptchaapikey){
-            return res.status(400).json({ message: 'Informe a chave da API do 2captcha para esse DETRAN, pois o mesmo possui captcha.' });
-        }
-
         const errors =  validation.generic(placa, renavam);
     
         if (errors) {
             return res.status(400).json(errors);
         }
         
-        const multas = await this.scrap(placa, renavam, twocaptchaapikey, webhook);
-    
-        res.status(200).json(multas);
+        if(!twocaptchaapikey){
+            return res.status(400).json({ message: 'Informe a chave da API do 2captcha para esse DETRAN, pois o mesmo possui captcha.' });
+        }
+
+        await this.scrap(placa, renavam, twocaptchaapikey, webhook);
+        
+        res.status(200).json({
+            placa,
+            renavam,
+            message: 'As multas serão enviadas para o webhook',
+            webhook: webhook
+        });
         
     } 
 

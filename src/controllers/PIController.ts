@@ -13,6 +13,7 @@ class Pi {
         const twocaptchaapikey = req.body.twocaptchaapikey as string;
 
         const errors =  validation.generic(placa, renavam);
+        
         if (errors) {
             return res.status(400).json(errors);
         }
