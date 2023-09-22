@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.se = void 0;
-const utils_1 = __importDefault(require("src/utils/utils"));
+const utils_1 = __importDefault(require("../utils/utils"));
 class Se {
     constructor() {
         this.index = async (req, res) => {
