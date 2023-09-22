@@ -12,6 +12,10 @@ import { pe } from './controllers/PEController';
 import { se } from './controllers/SEController';
 import { pr } from './controllers/PRController';
 import { ma } from './controllers/MAController';
+import { to } from './controllers/TOController';
+import { pa } from './controllers/PAController';
+import { pi } from './controllers/PIController';
+import { am } from './controllers/AMController';
 
 import middleware from './middleware/middleware';
 
@@ -24,6 +28,10 @@ routes.post('/multas/ms', middleware, ms.index);
 routes.post('/multas/rr', middleware, rr.index);
 routes.post('/multas/pe', middleware, pe.index);
 routes.post('/multas/ma', middleware, ma.index);
+routes.post('/multas/to', middleware, to.index);
+routes.post('/multas/pa', middleware, pa.index);
+routes.post('/multas/pi', middleware, pi.index);
+routes.post('/multas/am', middleware, am.index);
 routes.post('/multas/se', se.index);
 routes.post('/multas/pr', pr.index);
 

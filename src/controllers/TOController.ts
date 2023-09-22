@@ -1,10 +1,11 @@
 import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
-
 import { Request, Response } from 'express';
 
-class Rr {
+import captcha from '2captcha';
+
+class To {
 
     index = async (req: Request, res: Response) => {
 
@@ -38,7 +39,7 @@ class Rr {
         });
         
         const page = await browser.newPage();
-        await page.goto(`${process.env.RR_URL}`);
+        await page.goto(`${process.env.TO_URL}`);
         
         const inputPlacaSelect = await page.$('input[placeholder="BWC1140"]');
         const inputRenavamSelect = await page.$('input[placeholder="12345678910"]');
@@ -51,9 +52,11 @@ class Rr {
 
         //PAUSE FOR CAPTCHA
 
+
+
         return { placa, renavam };
     }
 
 }
 
-export const rr = new Rr();
+export const to = new To();

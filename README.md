@@ -37,34 +37,34 @@ Link do pacote
 ## Estados suportados
 Ainda não suportamos todos os estados, em breve  iremos adicionar mais estados, se quiser sugerir um estado, abra uma PR
 
-|    DETRANS    |   SITUAÇÃO        |   DISPONIBILIDADE    |
-|---------------|-------------------|----------------------|
-|    Detran MG	|	DISPONÍVEL      |    Operacional       |
-|    Detran AL	|	DISPONÍVEL      |    Operacional       |   
-|    Detran PB	|	DISPONÍVEL      |    Operacional       |
-|    Detran GO	|	DISPONÍVEL      |    Operacional       |
-|    Detran MA	|   DISPONÍVEL      |    Operacional       
-|    Detran DF	|   DISPONÍVEL      |    Operacional       |
-|    Detran MS	|	DISPONÍVEL      |    Operacional       |
-|    Detran PE	|   DISPONÍVEL      |    Operacional       |
-|    Detran SE	|   DISPONÍVEL      |    Operacional       |
-|    Detran PR	|   DISPONÍVEL      |    Operacional       |
-|    Detran PI	|Em desenvolvimento |                      |
-|    Detran AC	|Em desenvolvimento |                      |
-|    Detran AM	|Em desenvolvimento |                      |
-|    Detran BA	|Em desenvolvimento |                      |
-|    Detran CE	|Em desenvolvimento |                      |
-|    Detran ES	|Em desenvolvimento |                      |
-|    Detran MT	|Em desenvolvimento |                      |
-|    Detran PA	|Em desenvolvimento |                      |
-|    Detran RJ	|Em desenvolvimento |                      |
-|    Detran RN	|Em desenvolvimento |                      |
-|    Detran RO	|Em desenvolvimento |                      |
-|    Detran RR	|Em desenvolvimento |                      |
-|    Detran RS	|Em desenvolvimento |                      |
-|    Detran SC	|Em desenvolvimento |                      |
-|    Detran SP	|Em desenvolvimento |                      |
-|    Detran TO  |Em desenvolvimento |                      |
+|    DETRANS    |   SITUAÇÃO        |   DISPONIBILIDADE    |    OBSERVAÇÕES              |
+|---------------|-------------------|----------------------|------------------------------
+|    Detran MG	|	DISPONÍVEL      |    Operacional       |                             |
+|    Detran AL	|	DISPONÍVEL      |    Operacional       |                             |   
+|    Detran PB	|	DISPONÍVEL      |    Operacional       |                             |
+|    Detran GO	|	DISPONÍVEL      |    Operacional       |                             |
+|    Detran MA	|   DISPONÍVEL      |    Operacional       |                             |
+|    Detran DF	|   DISPONÍVEL      |    Operacional       |                             |
+|    Detran MS	|	DISPONÍVEL      |    Operacional       |                             |
+|    Detran PE	|   DISPONÍVEL      |    Operacional       |                             |
+|    Detran SE	|   DISPONÍVEL      |    Operacional       |                             |
+|    Detran PR	|   DISPONÍVEL      |    Operacional       |                             |
+|    Detran PI	|   DISPONÍVEL      |    Operacional       | Nacessário informar webhook |
+|    Detran AC	|Em desenvolvimento |                      |                             |
+|    Detran AM	|Em desenvolvimento |                      |                             |
+|    Detran BA	|Em desenvolvimento |                      |                             |
+|    Detran CE	|Em desenvolvimento |                      |                             |
+|    Detran ES	|Em desenvolvimento |                      |                             |
+|    Detran MT	|Em desenvolvimento |                      |                             |
+|    Detran PA	|Em desenvolvimento |                      |                             |
+|    Detran RJ	|Em desenvolvimento |                      |                             |
+|    Detran RN	|Em desenvolvimento |                      |                             |
+|    Detran RO	|Em desenvolvimento |                      |                             |
+|    Detran RR	|Em desenvolvimento |                      |                             |
+|    Detran RS	|Em desenvolvimento |                      |                             |
+|    Detran SC	|Em desenvolvimento |                      |                             |
+|    Detran SP	|Em desenvolvimento |                      |                             |
+|    Detran TO  |Em desenvolvimento |                      |                             |
 
 ## Dependencias (Linux)
 ```bash
