@@ -1,9 +1,6 @@
-import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
-
 import { Request, Response } from 'express';
-
 class Rr {
 
     index = async (req: Request, res: Response) => {

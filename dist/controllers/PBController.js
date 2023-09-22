@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pb = void 0;
+const utils_1 = __importDefault(require("../utils/utils"));
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const validation_1 = __importDefault(require("../validations/validation"));
-const utils_1 = __importDefault(require("src/utils/utils"));
 class PB {
     constructor() {
         this.index = async (req, res) => {

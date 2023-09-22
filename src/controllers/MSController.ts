@@ -1,7 +1,6 @@
-import utils from 'src/utils/utils';
+import utils from '../utils/utils';
 import validation from '../validations/validation';
 import { Request, Response } from 'express';
-
 class Ms {
 
     index = async (req: Request, res: Response) => {

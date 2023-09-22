@@ -1,11 +1,8 @@
-import utils from 'src/utils/utils';
+import utils from '../utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
-
 import * as Captcha from '2captcha-ts';
-
 import { Request, Response } from 'express';
-
 class Pi {
 
     index = async (req: Request, res: Response) => {

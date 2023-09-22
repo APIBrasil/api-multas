@@ -1,10 +1,8 @@
+import utils from '../utils/utils';
 import puppeteer from 'puppeteer';
 import validation from '../validations/validation';
-import utils from 'src/utils/utils';
 
 import { Request, Response } from 'express';
-import { se } from './SEController';
-
 class PB {
 
     index = async (req: Request, res: Response) => {

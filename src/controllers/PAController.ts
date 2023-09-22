@@ -1,10 +1,6 @@
-import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
 import { Request, Response } from 'express';
-
-import captcha from '2captcha';
-
 class Pa {
 
     index = async (req: Request, res: Response) => {

@@ -1,7 +1,6 @@
-import utils from 'src/utils';
+import utils from 'src/utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
-
 import { Request, Response } from 'express';
 
 class Mg {

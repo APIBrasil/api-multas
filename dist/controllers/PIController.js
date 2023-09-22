@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pi = void 0;
-const utils_1 = __importDefault(require("src/utils/utils"));
+const utils_1 = __importDefault(require("../utils/utils"));
 const validation_1 = __importDefault(require("../validations/validation"));
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const Captcha = __importStar(require("2captcha-ts"));

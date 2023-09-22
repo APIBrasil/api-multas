@@ -1,8 +1,5 @@
 import utils from 'src/utils/utils';
-import validation from '../validations/validation';
-
 import { Request, Response } from 'express';
-
 class Pr {
 
     index = async (req: Request, res: Response) => {

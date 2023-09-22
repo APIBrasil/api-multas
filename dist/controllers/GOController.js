@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.go = void 0;
-const utils_1 = __importDefault(require("src/utils/utils"));
+const utils_1 = __importDefault(require("../utils/utils"));
 const validation_1 = __importDefault(require("../validations/validation"));
 class Go {
     constructor() {
