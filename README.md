@@ -31,6 +31,31 @@ import ApiMultas from 'api-multas'
 })();
 ```
 
+Oservações para o estado de PI, que por ter captcha é necessário obter uma chave do <a href="2captcha.com" target="_blank" > 2captcha </a>
+
+```ts
+import ApiMultas from 'api-multas'
+
+(async () => {
+
+    const host = 'http://localhost:2222';
+    const token = '1234567890';
+
+    const api = new ApiMultas();
+
+    //use o webhook.site para visualizar o retorno
+    const request = await api.multas('mg', host, token, {
+        placa: "ABC1234",
+        renavam: "0000000000",
+        twocaptchaapikey: "abc1234abc1234abc1234abc1234",
+        webhook: "https://webhook.site/3545dc20-14ff-4c74-bee0-755762fd834a"
+    });
+
+    console.log(request);
+
+})();
+```
+
 Link do pacote
 <a href="https://www.npmjs.com/package/api-multas" target="_blank"> https://www.npmjs.com/package/api-multas </a>
 
