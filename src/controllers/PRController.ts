@@ -1,4 +1,4 @@
-import utils from 'src/utils/utils';
+import utils from '../utils/utils';
 import { Request, Response } from 'express';
 class Pr {
 
