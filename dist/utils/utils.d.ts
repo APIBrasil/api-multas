@@ -1,4 +1,5 @@
 declare class Utils {
+    imageFileToBase64: (image: any) => Promise<any>;
     sleep: (ms: number) => Promise<unknown>;
     clearString: (value: string) => string;
     convertStringToDecimal: (value: string) => number;

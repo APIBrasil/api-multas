@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 class Utils {
     constructor() {
+        this.imageFileToBase64 = async (image) => {
+            const file = await image.screenshot({ encoding: "base64" });
+            return file;
+        };
         this.sleep = (ms) => {
             console.log(`Sleeping for ${ms}ms`);
             return new Promise(resolve => setTimeout(resolve, ms));

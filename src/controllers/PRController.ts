@@ -20,7 +20,7 @@ class Pr {
 
         try{
 
-            const payload = await utils.request(`${process.env.PR_URL}/${renavam}`, 'GET', {
+            const payload = await utils.request(`${process.env.PR_URL}/?renavam=${renavam}`, 'GET', {
                 'Accept-Charset': 'UTF-8',
                 'Accept-Encoding': 'gzip',
                 'Access-Control-Allow-Headers': 'Content-Type, Content-Range, Content-Disposition, Content-Description, Origin, X-Requested-With, Accept',

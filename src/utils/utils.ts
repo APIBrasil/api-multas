@@ -1,6 +1,11 @@
 import axios from 'axios';
 class Utils {
 
+    imageFileToBase64 = async (image: any) => {
+        const file = await image.screenshot({ encoding: "base64" });
+        return file;
+    }
+
     sleep = (ms: number) => {
         console.log(`Sleeping for ${ms}ms`);
         return new Promise(resolve => setTimeout(resolve, ms));

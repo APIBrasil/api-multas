@@ -1,26 +1,35 @@
+import utils from '../utils/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
 import { Request, Response } from 'express';
+
+import * as Captcha from '2captcha-ts';
 class Pa {
 
     index = async (req: Request, res: Response) => {
 
         const placa = req.body.placa as string;
         const renavam = req.body.renavam as string;
-    
+        const webhook = req.body.webhook as string;
+        const twocaptchaapikey = req.body.twocaptchaapikey as string;
+
+        if(!twocaptchaapikey){
+            return res.status(400).json({ message: 'Informe a chave da API do 2captcha para esse DETRAN, pois o mesmo possui captcha.' });
+        }
+
         const errors =  validation.generic(placa, renavam);
     
         if (errors) {
             return res.status(400).json(errors);
         }
         
-        const multas = await this.scrap(placa, renavam);
+        const multas = await this.scrap(placa, renavam, twocaptchaapikey, webhook);
     
         res.status(200).json(multas);
         
     } 
 
-    scrap = async (placa: string, renavam: string) => {
+    scrap = async (placa: string, renavam: string, twocaptchaapikey:string, webhook:string) => {
 
         const browser = await puppeteer.launch({
             headless: process.env.NODE_ENV === 'production' ? 'new' : false,
@@ -37,20 +46,95 @@ class Pa {
         const page = await browser.newPage();
         await page.goto(`${process.env.PA_URL}`);
         
-        const inputPlacaSelect = await page.$('input[placeholder="BWC1140"]');
-        const inputRenavamSelect = await page.$('input[placeholder="12345678910"]');
-        const buttonSubmit = await page.$('button[id="submeter"]');
+        // forms
+        const inputPlacaSelect = await page.$('input[maxlength="7"]');
+        const inputRenavamSelect = await page.$('input[maxlength="11"]');
 
+        // captcha
+        const inputCaptchaSelect = await page.$('input[id="indexRenavam:senha"]');
+        const imageCaptchaSelect = await page.$('img[id="indexRenavam:captcha"]');
+        
+        // submit
+        const inputSubmitSelect = await page.$('input[id="indexRenavam:confirma"]');
+
+        //set values
         await inputPlacaSelect?.type(placa);
         await inputRenavamSelect?.type(renavam);
 
-        await buttonSubmit?.click();
+        const captchaBase64 = await utils.imageFileToBase64(imageCaptchaSelect);
 
-        //PAUSE FOR CAPTCHA
+        const solver = new Captcha.Solver(twocaptchaapikey as string);
 
+        solver.imageCaptcha({
+            body: captchaBase64 as string,
+            numeric: 4,
+            min_len: 5,
+            max_len: 5,
+        })
+        .then(async (res:any) => {
 
+            inputCaptchaSelect?.type(res.data);
+            inputSubmitSelect?.click();
+            
+            const multas = [] as any;
 
-        return { placa, renavam };
+            try{
+                    
+                await page.waitForSelector("table[class='stilo_dataTable']", { timeout: 5000 });
+
+                const ths = await page.$$('table[class="stilo_dataTable"] th');
+                const trs = await page.$$('table[class="stilo_dataTable"] tbody tr');
+
+                await Promise.all(trs.map(async (tr, i) => {
+
+                    const multa = {} as any;
+                    const tds = await tr.$$('td');
+
+                    await Promise.all(tds.map(async (td, j) => {
+                        const tdText = await td.evaluate((el) => el.textContent.trim().replace(/\s+/g, " "));
+                        const thText = utils.removeAccents(await ths[j].evaluate((el) => el.textContent.trim())).replace(/[^a-zA-Z0-9]/g, " ").replace(/\s+/g, " ").trim().toLowerCase().replace(/ (.)/g, function($1) { return $1.toUpperCase(); }).replace(/ /g, "");
+                        multa[thText] = tdText;
+                    }));
+
+                    if (Object.keys(multa).length > 0) {
+                        multas.push(multa);
+                    }
+
+                }));
+
+                utils.webhook(webhook, 'POST', null, {
+                    placa,
+                    renavam,
+                    multas
+                });
+
+            }catch(err){
+
+                const errorElementSelect = await page.$$('.errors');
+                const error = await errorElementSelect[0].evaluate((el) => el.textContent.trim());
+
+                utils.webhook(webhook, 'POST', null, {
+                    placa,
+                    renavam,
+                    error
+                });
+
+            }
+            
+            await browser.close();
+
+        })
+        .catch(async (err) => {
+            
+            utils.webhook(webhook, 'POST', null, {
+                placa, renavam, multas: [], error: 'Erro ao resolver captcha'
+            });
+
+            await browser.close();
+            return { message:'Erro ao resolver captcha', error: err};
+
+        })
+
     }
 
 }
