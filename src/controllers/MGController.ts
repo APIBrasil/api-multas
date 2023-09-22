@@ -1,4 +1,4 @@
-import utils from 'src/utils/utils';
+import utils from 'src/utils';
 import validation from '../validations/validation';
 import puppeteer from "puppeteer";
 
