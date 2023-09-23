@@ -125,7 +125,7 @@ class SCController {
 
             if (html.includes(textCaptchaInvalid)) {
                 await pageReload.close();
-                return { placa, renavam, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
+                return { placa, renavam, captchaToken, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
             }
 
             //new page with captcha solver
