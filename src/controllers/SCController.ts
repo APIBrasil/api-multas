@@ -92,6 +92,7 @@ class SCController {
         try{
 
             const textoNotFound = "Nenhuma multa em aberto cadastrada para este veículo até o momento.";
+            const textCaptchaInvalid = "Problema de acesso a página. Recaptcha inválido. Consulte novamente";
             await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
 
             const html = await pageReload.content();
@@ -102,6 +103,12 @@ class SCController {
                 console.log('Nenhuma multa em aberto cadastrada para este veículo até o momento.');
                 await pageReload.close();
                 return { placa, renavam, multas: [], message: 'Nenhuma multa em aberto cadastrada para este veículo até o momento.' };
+            }
+
+            if (html.includes(textCaptchaInvalid)) {
+                console.log('Problema de acesso a página. Recaptcha inválido. Consulte novamente');
+                await pageReload.close();
+                return { placa, renavam, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
             }
 
             console.log('open pageReload', pageReload.url());
