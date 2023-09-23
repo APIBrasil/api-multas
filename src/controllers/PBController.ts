@@ -42,7 +42,7 @@ class PB {
         const tablesDados = 'table[width="650"]';
         const tablesPagamento = 'table[width="647"]';
 
-        await page.goto(`${process.env.PB_URL}/BBDT_MULTABOLETO_CLIENTE/MultaBoleto?placa=${placa}&renavam=${renavam}&opcao=I&display=web&redirect=ok`);
+        await page.goto(`${process.env.PB_URL}/BBDT_MULTABOLETO_CLIENTE/MultaBoleto?placa=${placa}&renavam=${renavam}&opcao=I&display=web&redirect=ok`, { waitUntil: 'networkidle2', timeout: 5000 });
 
         // <td height="92"><div align="center">
         // <font size="2" face="Verdana, Arial, Helvetica, sans-serif">

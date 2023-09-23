@@ -48,7 +48,7 @@ class Pa {
         });
         
         const page = await browser.newPage();
-        await page.goto(`${process.env.PA_URL}`);
+        await page.goto(`${process.env.PA_URL}`, { waitUntil: 'networkidle2', timeout: 5000 });
         
         // forms
         const inputPlacaSelect = await page.$('input[maxlength="7"]');

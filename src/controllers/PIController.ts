@@ -48,7 +48,7 @@ class Pi {
         });
         
         const page = await browser.newPage();
-        await page.goto(`${process.env.PI_URL}`);
+        await page.goto(`${process.env.PI_URL}`, { waitUntil: 'networkidle2', timeout: 5000 });
         
         //form itens
         const inputPlacaSelect = await page.$('#inputPlaca');

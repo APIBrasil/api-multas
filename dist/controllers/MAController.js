@@ -23,7 +23,7 @@ class Ma {
             let data = new form_data_1.default();
             data.append('placa', placa);
             data.append('renavam', renavam);
-            const payload = await utils_1.default.request(`${process.env.MA_URL}`, 'POST', {
+            const payload = await utils_1.default.request(`${process.env.MA_URL}`, { waitUntil: 'networkidle2', timeout: 5000  }'POST', {
                 'Accept-Encoding': 'gzip',
                 'User-Agent': 'okhttp/3.12.12',
                 'Accept': 'application/json'

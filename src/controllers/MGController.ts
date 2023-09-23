@@ -38,7 +38,7 @@ class Mg {
         
         const page = await browser.newPage();
         
-        await page.goto(`${process.env.MG_URL}`);
+        await page.goto(`${process.env.MG_URL}`, { waitUntil: 'networkidle2', timeout: 5000 });
 
         const placaSelector = '#placa';
         const renavamSelector = '#renavam';

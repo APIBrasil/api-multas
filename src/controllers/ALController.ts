@@ -39,7 +39,7 @@ class Al {
         
         const page = await browser.newPage();
 
-        await page.goto(`${process.env.AL_URL}`);
+        await page.goto(`${process.env.AL_URL}`, { waitUntil: 'networkidle2', timeout: 5000 });
 
         const placaSelector = '#id_placa';
         const renavamSelector = '#id_renavam';

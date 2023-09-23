@@ -35,7 +35,7 @@ class To {
         });
         
         const page = await browser.newPage();
-        await page.goto(`${process.env.TO_URL}`);
+        await page.goto(`${process.env.TO_URL}`, { waitUntil: 'networkidle2', timeout: 5000 });
         
         const inputPlacaSelect = await page.$('input[placeholder="BWC1140"]');
         const inputRenavamSelect = await page.$('input[placeholder="12345678910"]');
