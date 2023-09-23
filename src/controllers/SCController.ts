@@ -24,11 +24,17 @@ class SCController {
         }
     
         Promise.all([
+            
             this.scrap(placa, renavam, twocaptchaapikey),
+
         ]).then((values) => {
+            
             res.status(200).json(values);
+        
         }).catch((error) => {
-            res.status(400).json(error);
+        
+            res.status(400).json({error: error, message: 'Erro ao consultar o site do DETRAN SC.'});
+        
         });
 
     }
