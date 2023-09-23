@@ -75,8 +75,10 @@ class SCController {
                 ]
             });
             const page = await browser.newPage();
+            const userAgent = new user_agents_1.default({ deviceCategory: 'desktop' }).toString();
+            console.log(userAgent);
             // Configurar User-Agent e viewport
-            await page.setUserAgent(user_agents_1.default.toString());
+            await page.setUserAgent(userAgent);
             await page.setExtraHTTPHeaders({ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' });
             await page.setJavaScriptEnabled(true);
             await page.setBypassCSP(true);
@@ -95,7 +97,7 @@ class SCController {
             //reload page with captchaToken.data
             const pageReload = await browser.newPage();
             // Configurar User-Agent e viewport
-            await pageReload.setUserAgent(user_agents_1.default.toString());
+            await pageReload.setUserAgent(userAgent);
             await pageReload.setExtraHTTPHeaders({ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' });
             await pageReload.setJavaScriptEnabled(true);
             await pageReload.setBypassCSP(true);

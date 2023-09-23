@@ -63,14 +63,16 @@ class SCController {
                 '--disable-remote-fonts',
                 '--disable-sync',
                 '--disable-notifications',
-
             ]
         });
         
         const page = await browser.newPage();
 
+        const userAgent = new useragent({ deviceCategory: 'desktop' }).toString();
+        console.log(userAgent);
+
         // Configurar User-Agent e viewport
-        await page.setUserAgent(useragent.toString());
+        await page.setUserAgent(userAgent);
         await page.setExtraHTTPHeaders({ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' });
         await page.setJavaScriptEnabled(true);
         await page.setBypassCSP(true);
@@ -95,15 +97,12 @@ class SCController {
         const pageReload = await browser.newPage();
 
         // Configurar User-Agent e viewport
-        await pageReload.setUserAgent(useragent.toString());
+        await pageReload.setUserAgent(userAgent);
         await pageReload.setExtraHTTPHeaders({ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' });
         await pageReload.setJavaScriptEnabled(true);
         await pageReload.setBypassCSP(true);
 
         await pageReload.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}&g-recaptcha-response=${captchaToken.data}`, { waitUntil: 'networkidle2', timeout: 10000 });
-
-
-
 
         const buttonSubmitReload = await pageReload.$('button[class="g-recaptcha"]');
         await buttonSubmitReload?.click();
