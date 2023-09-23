@@ -27,6 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sc = void 0;
+//strict
+const utils_1 = __importDefault(require("../utils/utils"));
 const validation_1 = __importDefault(require("../validations/validation"));
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const Captcha = __importStar(require("2captcha-ts"));
@@ -84,11 +86,11 @@ class SCController {
             await (buttonSubmitReload === null || buttonSubmitReload === void 0 ? void 0 : buttonSubmitReload.click());
             try {
                 const textoNotFound = "Nenhuma multa em aberto cadastrada para este veículo até o momento.";
-                await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
+                // await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
+                utils_1.default.sleep(5000);
                 const html = await pageReload.content();
                 if (html.includes(textoNotFound)) {
                     await pageReload.close();
-                    await browser.close();
                     return { placa, renavam, multas: [], message: 'Nenhuma multa em aberto cadastrada para este veículo até o momento.' };
                 }
                 //new page with captcha solver
