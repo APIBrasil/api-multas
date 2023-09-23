@@ -38,7 +38,7 @@ class Pa {
         const browser = await puppeteer.launch({
             headless: process.env.NODE_ENV === 'production' ? 'new' : false,
             slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
-            timeout: 5000,
+            timeout: 10000,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
@@ -48,7 +48,7 @@ class Pa {
         });
         
         const page = await browser.newPage();
-        await page.goto(`${process.env.PA_URL}`, { waitUntil: 'networkidle2', timeout: 5000 });
+        await page.goto(`${process.env.PA_URL}`, { waitUntil: 'networkidle2', timeout: 10000 });
         
         // forms
         const inputPlacaSelect = await page.$('input[maxlength="7"]');
@@ -84,7 +84,7 @@ class Pa {
 
             try{
                     
-                await page.waitForSelector("table[class='stilo_dataTable']", { timeout: 5000 });
+                await page.waitForSelector("table[class='stilo_dataTable']", { timeout: 10000 });
 
                 const ths = await page.$$('table[class="stilo_dataTable"] th');
                 const trs = await page.$$('table[class="stilo_dataTable"] tbody tr');

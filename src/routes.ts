@@ -16,6 +16,7 @@ import { to } from './controllers/TOController';
 import { pa } from './controllers/PAController';
 import { pi } from './controllers/PIController';
 import { am } from './controllers/AMController';
+import { sc } from './controllers/SCController';
 
 import middleware from './middleware/middleware';
 
@@ -32,6 +33,7 @@ routes.post('/multas/to', middleware, to.index);
 routes.post('/multas/pa', middleware, pa.index);
 routes.post('/multas/pi', middleware, pi.index);
 routes.post('/multas/am', middleware, am.index);
+routes.post('/multas/sc', middleware, sc.index);
 routes.post('/multas/se', se.index);
 routes.post('/multas/pr', pr.index);
 

@@ -27,7 +27,7 @@ class PB {
         const browser = await puppeteer.launch({
             headless: process.env.NODE_ENV === 'production' ? 'new' : false,
             slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
-            timeout: 5000,
+            timeout: 10000,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
@@ -42,7 +42,7 @@ class PB {
         const tablesDados = 'table[width="650"]';
         const tablesPagamento = 'table[width="647"]';
 
-        await page.goto(`${process.env.PB_URL}/BBDT_MULTABOLETO_CLIENTE/MultaBoleto?placa=${placa}&renavam=${renavam}&opcao=I&display=web&redirect=ok`, { waitUntil: 'networkidle2', timeout: 5000 });
+        await page.goto(`${process.env.PB_URL}/BBDT_MULTABOLETO_CLIENTE/MultaBoleto?placa=${placa}&renavam=${renavam}&opcao=I&display=web&redirect=ok`, { waitUntil: 'networkidle2', timeout: 10000 });
 
         // <td height="92"><div align="center">
         // <font size="2" face="Verdana, Arial, Helvetica, sans-serif">

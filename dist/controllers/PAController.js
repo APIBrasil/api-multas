@@ -38,21 +38,26 @@ class Pa {
             const renavam = req.body.renavam;
             const webhook = req.body.webhook;
             const twocaptchaapikey = req.body.twocaptchaapikey;
-            if (!twocaptchaapikey) {
-                return res.status(400).json({ message: 'Informe a chave da API do 2captcha para esse DETRAN, pois o mesmo possui captcha.' });
-            }
             const errors = validation_1.default.generic(placa, renavam);
             if (errors) {
                 return res.status(400).json(errors);
             }
-            const multas = await this.scrap(placa, renavam, twocaptchaapikey, webhook);
-            res.status(200).json(multas);
+            if (!twocaptchaapikey) {
+                return res.status(400).json({ message: 'Informe a chave da API do 2captcha para esse DETRAN, pois o mesmo possui captcha.' });
+            }
+            await this.scrap(placa, renavam, twocaptchaapikey, webhook);
+            res.status(200).json({
+                placa,
+                renavam,
+                message: 'As multas serão enviadas para o webhook',
+                webhook: webhook
+            });
         };
         this.scrap = async (placa, renavam, twocaptchaapikey, webhook) => {
             const browser = await puppeteer_1.default.launch({
                 headless: process.env.NODE_ENV === 'production' ? 'new' : false,
                 slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
-                timeout: 5000,
+                timeout: 10000,
                 args: [
                     '--no-sandbox',
                     '--disable-setuid-sandbox',
@@ -61,7 +66,7 @@ class Pa {
                 ]
             });
             const page = await browser.newPage();
-            await page.goto(`${process.env.PA_URL}`);
+            await page.goto(`${process.env.PA_URL}`, { waitUntil: 'networkidle2', timeout: 10000 });
             // forms
             const inputPlacaSelect = await page.$('input[maxlength="7"]');
             const inputRenavamSelect = await page.$('input[maxlength="11"]');
@@ -86,7 +91,7 @@ class Pa {
                 inputSubmitSelect === null || inputSubmitSelect === void 0 ? void 0 : inputSubmitSelect.click();
                 const multas = [];
                 try {
-                    await page.waitForSelector("table[class='stilo_dataTable']", { timeout: 5000 });
+                    await page.waitForSelector("table[class='stilo_dataTable']", { timeout: 10000 });
                     const ths = await page.$$('table[class="stilo_dataTable"] th');
                     const trs = await page.$$('table[class="stilo_dataTable"] tbody tr');
                     await Promise.all(trs.map(async (tr, i) => {

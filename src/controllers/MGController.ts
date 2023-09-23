@@ -27,7 +27,7 @@ class Mg {
         const browser = await puppeteer.launch({
             headless: process.env.NODE_ENV === 'production' ? 'new' : false,
             slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
-            timeout: 5000,
+            timeout: 10000,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
@@ -38,7 +38,7 @@ class Mg {
         
         const page = await browser.newPage();
         
-        await page.goto(`${process.env.MG_URL}`, { waitUntil: 'networkidle2', timeout: 5000 });
+        await page.goto(`${process.env.MG_URL}`, { waitUntil: 'networkidle2', timeout: 10000 });
 
         const placaSelector = '#placa';
         const renavamSelector = '#renavam';

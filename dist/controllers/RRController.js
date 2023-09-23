@@ -22,7 +22,7 @@ class Rr {
             const browser = await puppeteer_1.default.launch({
                 headless: process.env.NODE_ENV === 'production' ? 'new' : false,
                 slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
-                timeout: 5000,
+                timeout: 10000,
                 args: [
                     '--no-sandbox',
                     '--disable-setuid-sandbox',
@@ -31,7 +31,7 @@ class Rr {
                 ]
             });
             const page = await browser.newPage();
-            await page.goto(`${process.env.RR_URL}`);
+            await page.goto(`${process.env.RR_URL}`, { waitUntil: 'networkidle2', timeout: 10000 });
             const inputPlacaSelect = await page.$('input[placeholder="BWC1140"]');
             const inputRenavamSelect = await page.$('input[placeholder="12345678910"]');
             const buttonSubmit = await page.$('button[id="submeter"]');

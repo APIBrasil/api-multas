@@ -28,7 +28,7 @@ class Al {
         const browser = await puppeteer.launch({
             headless: process.env.NODE_ENV === 'production' ? 'new' : false,
             slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
-            timeout: 5000,
+            timeout: 10000,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
@@ -39,7 +39,7 @@ class Al {
         
         const page = await browser.newPage();
 
-        await page.goto(`${process.env.AL_URL}`, { waitUntil: 'networkidle2', timeout: 5000 });
+        await page.goto(`${process.env.AL_URL}`, { waitUntil: 'networkidle2', timeout: 10000 });
 
         const placaSelector = '#id_placa';
         const renavamSelector = '#id_renavam';
@@ -102,7 +102,7 @@ class Al {
         try{
 
             const divErrorSelector = '.error';
-            const divErrors = await page.waitForSelector(divErrorSelector, { timeout: 5000 });
+            const divErrors = await page.waitForSelector(divErrorSelector, { timeout: 10000 });
 
             const divErrorsHtml = await page.evaluate((divErrors:any) => divErrors.innerHTML, divErrors);
             const errosClear = divErrorsHtml.replace(/(<([^>]+)>)/gi, "").replace(/\n\t/g, "").trim();
