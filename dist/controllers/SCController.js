@@ -30,6 +30,7 @@ exports.sc = void 0;
 const validation_1 = __importDefault(require("../validations/validation"));
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const Captcha = __importStar(require("2captcha-ts"));
+const user_agents_1 = __importDefault(require("user-agents"));
 class SCController {
     constructor() {
         this.index = async (req, res) => {
@@ -61,15 +62,32 @@ class SCController {
                     '--disable-setuid-sandbox',
                     '--disable-dev-shm-usage',
                     '--disable-accelerated-2d-canvas',
+                    //evitar detectar o puppeteer
+                    '--disable-blink-features=AutomationControlled',
+                    '--disable-web-security',
+                    '--disable-features=IsolateOrigins,site-per-process',
+                    '--disable-extensions',
+                    '--disable-plugins-discovery',
+                    '--disable-remote-fonts',
+                    '--disable-sync',
+                    //user agent
+                    '--user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"',
+                    //block notifications
+                    '--disable-notifications',
                 ]
             });
             const page = await browser.newPage();
+            await page.setUserAgent(user_agents_1.default.toString());
+            //setJavaScriptEnabled
+            await page.setJavaScriptEnabled(true);
+            //width and height
+            await page.setViewport({
+                width: 1280,
+                height: 720,
+            });
             await page.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}`, { waitUntil: 'networkidle2', timeout: 10000 });
-            console.log('open page', page.url());
             const buttonSubmitSelect = await page.$('button[class="g-recaptcha"]');
             const urlCaptcha = page.url();
-            console.log('urlCaptcha', urlCaptcha);
-            //captcha solver
             const solver = new Captcha.Solver(twocaptchaapikey);
             const dataSiteKeyValueFromButton = await page.evaluate((buttonSubmitSelect) => {
                 return buttonSubmitSelect.getAttribute('data-sitekey');
@@ -78,32 +96,33 @@ class SCController {
                 googlekey: dataSiteKeyValueFromButton,
                 pageurl: urlCaptcha,
             });
-            console.log('captchaToken', captchaToken.data);
             await page.close();
             //reload page with captchaToken.data
             const pageReload = await browser.newPage();
+            await pageReload.setUserAgent(user_agents_1.default.toString());
+            //setJavaScriptEnabled
+            await pageReload.setJavaScriptEnabled(true);
+            //width and height
+            await pageReload.setViewport({
+                width: 1366,
+                height: 768,
+            });
             await pageReload.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}&g-recaptcha-response=${captchaToken.data}`, { waitUntil: 'networkidle2', timeout: 10000 });
-            console.log('open pageReload', pageReload.url());
             const buttonSubmitReload = await pageReload.$('button[class="g-recaptcha"]');
             await (buttonSubmitReload === null || buttonSubmitReload === void 0 ? void 0 : buttonSubmitReload.click());
-            console.log('click buttonSubmitReload');
             try {
                 const textoNotFound = "Nenhuma multa em aberto cadastrada para este veículo até o momento.";
                 const textCaptchaInvalid = "Problema de acesso a página. Recaptcha inválido. Consulte novamente";
                 await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
                 const html = await pageReload.content();
-                console.log('html', html);
                 if (html.includes(textoNotFound)) {
-                    console.log('Nenhuma multa em aberto cadastrada para este veículo até o momento.');
                     await pageReload.close();
                     return { placa, renavam, multas: [], message: 'Nenhuma multa em aberto cadastrada para este veículo até o momento.' };
                 }
                 if (html.includes(textCaptchaInvalid)) {
-                    console.log('Problema de acesso a página. Recaptcha inválido. Consulte novamente');
                     await pageReload.close();
                     return { placa, renavam, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
                 }
-                console.log('open pageReload', pageReload.url());
                 //new page with captcha solver
                 await pageReload.waitForSelector('table[bgcolor="white"]', { timeout: 10000 });
                 const tablesElementsSelects = await pageReload.$$('table[bgcolor="white"]');
@@ -127,6 +146,7 @@ class SCController {
                 }
                 multas.shift();
                 await pageReload.close();
+                await browser.close();
                 return { placa, renavam, multas };
             }
             catch (e) {
@@ -137,6 +157,7 @@ class SCController {
                 console.log(e);
                 await page.close();
                 await pageReload.close();
+                await browser.close();
                 return { placa, renavam, multas: [], error };
             }
         };

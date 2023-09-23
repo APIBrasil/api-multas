@@ -5,6 +5,8 @@ import puppeteer from "puppeteer";
 import * as Captcha from '2captcha-ts';
 import { Request, Response } from 'express';
 
+import useragent from 'user-agents';
+
 class SCController {
 
     index = async (req: Request, res: Response) => {
@@ -50,20 +52,41 @@ class SCController {
                 '--disable-setuid-sandbox',
                 '--disable-dev-shm-usage',
                 '--disable-accelerated-2d-canvas',
+
+                //evitar detectar o puppeteer
+                '--disable-blink-features=AutomationControlled',
+                '--disable-web-security',
+                '--disable-features=IsolateOrigins,site-per-process',
+                '--disable-extensions',
+                '--disable-plugins-discovery',
+                '--disable-remote-fonts',
+                '--disable-sync',
+
+                //user agent
+                '--user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"',
+
+                //block notifications
+                '--disable-notifications',
+
             ]
         });
         
         const page = await browser.newPage();
-        await page.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}`, { waitUntil: 'networkidle2', timeout: 10000 });
+        await page.setUserAgent(useragent.toString());
 
-        console.log('open page', page.url());
-        
+        //setJavaScriptEnabled
+        await page.setJavaScriptEnabled(true);
+
+        //width and height
+        await page.setViewport({
+            width: 1280,
+            height: 720,
+        });
+
+        await page.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}`, { waitUntil: 'networkidle2', timeout: 10000 });
         const buttonSubmitSelect = await page.$('button[class="g-recaptcha"]');
         const urlCaptcha = page.url() as string;
 
-        console.log('urlCaptcha', urlCaptcha);
-
-        //captcha solver
         const solver = new Captcha.Solver(twocaptchaapikey as string);
         const dataSiteKeyValueFromButton = await page.evaluate((buttonSubmitSelect) => {
             return buttonSubmitSelect.getAttribute('data-sitekey');
@@ -74,20 +97,25 @@ class SCController {
             pageurl: urlCaptcha,
         });
 
-        console.log('captchaToken', captchaToken.data);
-
         await page.close();
 
         //reload page with captchaToken.data
         const pageReload = await browser.newPage();
+
+        await pageReload.setUserAgent(useragent.toString());
+
+        //setJavaScriptEnabled
+        await pageReload.setJavaScriptEnabled(true);
+
+        //width and height
+        await pageReload.setViewport({
+            width: 1366,
+            height: 768,
+        });
+
         await pageReload.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}&g-recaptcha-response=${captchaToken.data}`, { waitUntil: 'networkidle2', timeout: 10000 });
-
-        console.log('open pageReload', pageReload.url());
-
         const buttonSubmitReload = await pageReload.$('button[class="g-recaptcha"]');
         await buttonSubmitReload?.click();
-
-        console.log('click buttonSubmitReload');
 
         try{
 
@@ -97,21 +125,15 @@ class SCController {
 
             const html = await pageReload.content();
 
-            console.log('html', html);
-
             if (html.includes(textoNotFound)) {
-                console.log('Nenhuma multa em aberto cadastrada para este veículo até o momento.');
                 await pageReload.close();
                 return { placa, renavam, multas: [], message: 'Nenhuma multa em aberto cadastrada para este veículo até o momento.' };
             }
 
             if (html.includes(textCaptchaInvalid)) {
-                console.log('Problema de acesso a página. Recaptcha inválido. Consulte novamente');
                 await pageReload.close();
                 return { placa, renavam, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
             }
-
-            console.log('open pageReload', pageReload.url());
 
             //new page with captcha solver
             await pageReload.waitForSelector('table[bgcolor="white"]', { timeout: 10000 });
@@ -141,8 +163,10 @@ class SCController {
             }
 
             multas.shift();
-            await pageReload.close();
 
+            await pageReload.close();
+            await browser.close();
+            
             return { placa, renavam, multas };
 
         }catch(e){
@@ -154,12 +178,15 @@ class SCController {
             }, errorElement);
 
             console.log(e);
+
             await page.close();
             await pageReload.close();
+            await browser.close();
 
             return { placa, renavam, multas: [], error };
 
         }
+
 
     }
 
