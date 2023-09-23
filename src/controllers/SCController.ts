@@ -96,10 +96,10 @@ class SCController {
 
             const html = await pageReload.content();
 
+            console.log('html', html);
+
             if (html.includes(textoNotFound)) {
-
                 console.log('Nenhuma multa em aberto cadastrada para este veículo até o momento.');
-
                 await pageReload.close();
                 return { placa, renavam, multas: [], message: 'Nenhuma multa em aberto cadastrada para este veículo até o momento.' };
             }

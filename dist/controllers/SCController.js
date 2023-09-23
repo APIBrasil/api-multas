@@ -91,6 +91,7 @@ class SCController {
                 const textoNotFound = "Nenhuma multa em aberto cadastrada para este veículo até o momento.";
                 await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
                 const html = await pageReload.content();
+                console.log('html', html);
                 if (html.includes(textoNotFound)) {
                     console.log('Nenhuma multa em aberto cadastrada para este veículo até o momento.');
                     await pageReload.close();
