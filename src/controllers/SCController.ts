@@ -47,7 +47,7 @@ class SCController {
         puppeteer.use(StealthPlugin());
 
         const browser = await puppeteer.launch({
-            headless: process.env.NODE_ENV === 'production' ? 'new' : false,
+            headless: process.env.NODE_ENV === 'production' ? true: false,
             slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
             timeout: 10000,
             args: [

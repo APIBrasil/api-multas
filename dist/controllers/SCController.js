@@ -56,7 +56,7 @@ class SCController {
         this.scrap = async (placa, renavam, twocaptchaapikey) => {
             puppeteer_extra_1.default.use((0, puppeteer_extra_plugin_stealth_1.default)());
             const browser = await puppeteer_extra_1.default.launch({
-                headless: process.env.NODE_ENV === 'production' ? 'new' : false,
+                headless: process.env.NODE_ENV === 'production' ? true : false,
                 slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
                 timeout: 10000,
                 args: [
