@@ -54,11 +54,14 @@ class SCController {
         });
         
         const page = await browser.newPage();
-
         await page.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}`, { waitUntil: 'networkidle2', timeout: 10000 });
+
+        console.log('open page', page.url());
         
         const buttonSubmitSelect = await page.$('button[class="g-recaptcha"]');
         const urlCaptcha = page.url() as string;
+
+        console.log('urlCaptcha', urlCaptcha);
 
         //captcha solver
         const solver = new Captcha.Solver(twocaptchaapikey as string);
@@ -70,6 +73,8 @@ class SCController {
             googlekey: dataSiteKeyValueFromButton as string,
             pageurl: urlCaptcha,
         });
+
+        console.log('captchaToken', captchaToken.data);
 
         await page.close();
 
@@ -83,9 +88,7 @@ class SCController {
         try{
 
             const textoNotFound = "Nenhuma multa em aberto cadastrada para este veículo até o momento.";
-            // await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
-
-            utils.sleep(5000);
+            await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
 
             const html = await pageReload.content();
 
@@ -122,27 +125,25 @@ class SCController {
             }
 
             multas.shift();
-
-            await page.close();
+            await pageReload.close();
 
             return { placa, renavam, multas };
 
+        }catch(e){
+            
+            const errorElement = await pageReload.$('div[class="alert alert-danger"]');
 
-            }catch(e){
-                
-                const errorElement = await pageReload.$('div[class="alert alert-danger"]');
+            const error = await pageReload.evaluate((errorElement) => {
+                return errorElement.textContent;
+            }, errorElement);
 
-                const error = await pageReload.evaluate((errorElement) => {
-                    return errorElement.textContent;
-                }, errorElement);
+            console.log(e);
+            await page.close();
+            await pageReload.close();
 
-                console.log(e);
-                await page.close();
-                await pageReload.close();
+            return { placa, renavam, multas: [], error };
 
-                return { placa, renavam, multas: [], error };
-
-            }
+        }
 
     }
 

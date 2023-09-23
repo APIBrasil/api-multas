@@ -27,8 +27,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sc = void 0;
-//strict
-const utils_1 = __importDefault(require("../utils/utils"));
 const validation_1 = __importDefault(require("../validations/validation"));
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const Captcha = __importStar(require("2captcha-ts"));
@@ -67,8 +65,10 @@ class SCController {
             });
             const page = await browser.newPage();
             await page.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}`, { waitUntil: 'networkidle2', timeout: 10000 });
+            console.log('open page', page.url());
             const buttonSubmitSelect = await page.$('button[class="g-recaptcha"]');
             const urlCaptcha = page.url();
+            console.log('urlCaptcha', urlCaptcha);
             //captcha solver
             const solver = new Captcha.Solver(twocaptchaapikey);
             const dataSiteKeyValueFromButton = await page.evaluate((buttonSubmitSelect) => {
@@ -78,6 +78,7 @@ class SCController {
                 googlekey: dataSiteKeyValueFromButton,
                 pageurl: urlCaptcha,
             });
+            console.log('captchaToken', captchaToken.data);
             await page.close();
             //reload page with captchaToken.data
             const pageReload = await browser.newPage();
@@ -86,8 +87,7 @@ class SCController {
             await (buttonSubmitReload === null || buttonSubmitReload === void 0 ? void 0 : buttonSubmitReload.click());
             try {
                 const textoNotFound = "Nenhuma multa em aberto cadastrada para este veículo até o momento.";
-                // await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
-                utils_1.default.sleep(5000);
+                await pageReload.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
                 const html = await pageReload.content();
                 if (html.includes(textoNotFound)) {
                     await pageReload.close();
@@ -115,7 +115,7 @@ class SCController {
                     }
                 }
                 multas.shift();
-                await page.close();
+                await pageReload.close();
                 return { placa, renavam, multas };
             }
             catch (e) {
