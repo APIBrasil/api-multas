@@ -82,8 +82,12 @@ class SCController {
         const pageReload = await browser.newPage();
         await pageReload.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}&g-recaptcha-response=${captchaToken.data}`, { waitUntil: 'networkidle2', timeout: 10000 });
 
+        console.log('open pageReload', pageReload.url());
+
         const buttonSubmitReload = await pageReload.$('button[class="g-recaptcha"]');
         await buttonSubmitReload?.click();
+
+        console.log('click buttonSubmitReload');
 
         try{
 
@@ -93,9 +97,14 @@ class SCController {
             const html = await pageReload.content();
 
             if (html.includes(textoNotFound)) {
+
+                console.log('Nenhuma multa em aberto cadastrada para este veículo até o momento.');
+
                 await pageReload.close();
                 return { placa, renavam, multas: [], message: 'Nenhuma multa em aberto cadastrada para este veículo até o momento.' };
             }
+
+            console.log('open pageReload', pageReload.url());
 
             //new page with captcha solver
             await pageReload.waitForSelector('table[bgcolor="white"]', { timeout: 10000 });
