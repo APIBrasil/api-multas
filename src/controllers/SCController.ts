@@ -122,7 +122,6 @@ class SCController {
             multas.shift();
 
             await page.close();
-            await browser.close();
 
             return { placa, renavam, multas };
 
@@ -138,8 +137,6 @@ class SCController {
                 console.log(e);
                 await page.close();
                 await pageReload.close();
-
-                await browser.close();
 
                 return { placa, renavam, multas: [], error };
 
