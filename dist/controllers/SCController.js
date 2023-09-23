@@ -28,9 +28,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sc = void 0;
 const validation_1 = __importDefault(require("../validations/validation"));
-const puppeteer_1 = __importDefault(require("puppeteer"));
-const Captcha = __importStar(require("2captcha-ts"));
+const puppeteer_extra_1 = __importDefault(require("puppeteer-extra"));
+const puppeteer_extra_plugin_stealth_1 = __importDefault(require("puppeteer-extra-plugin-stealth"));
 const user_agents_1 = __importDefault(require("user-agents"));
+const Captcha = __importStar(require("2captcha-ts"));
 class SCController {
     constructor() {
         this.index = async (req, res) => {
@@ -53,7 +54,8 @@ class SCController {
             });
         };
         this.scrap = async (placa, renavam, twocaptchaapikey) => {
-            const browser = await puppeteer_1.default.launch({
+            puppeteer_extra_1.default.use((0, puppeteer_extra_plugin_stealth_1.default)());
+            const browser = await puppeteer_extra_1.default.launch({
                 headless: process.env.NODE_ENV === 'production' ? 'new' : false,
                 slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
                 timeout: 10000,
@@ -62,7 +64,6 @@ class SCController {
                     '--disable-setuid-sandbox',
                     '--disable-dev-shm-usage',
                     '--disable-accelerated-2d-canvas',
-                    //evitar detectar o puppeteer
                     '--disable-blink-features=AutomationControlled',
                     '--disable-web-security',
                     '--disable-features=IsolateOrigins,site-per-process',
@@ -70,21 +71,15 @@ class SCController {
                     '--disable-plugins-discovery',
                     '--disable-remote-fonts',
                     '--disable-sync',
-                    //user agent
-                    '--user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"',
-                    //block notifications
                     '--disable-notifications',
                 ]
             });
             const page = await browser.newPage();
+            // Configurar User-Agent e viewport
             await page.setUserAgent(user_agents_1.default.toString());
-            //setJavaScriptEnabled
+            await page.setExtraHTTPHeaders({ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' });
             await page.setJavaScriptEnabled(true);
-            //width and height
-            await page.setViewport({
-                width: 1280,
-                height: 720,
-            });
+            await page.setBypassCSP(true);
             await page.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}`, { waitUntil: 'networkidle2', timeout: 10000 });
             const buttonSubmitSelect = await page.$('button[class="g-recaptcha"]');
             const urlCaptcha = page.url();
@@ -99,14 +94,11 @@ class SCController {
             await page.close();
             //reload page with captchaToken.data
             const pageReload = await browser.newPage();
+            // Configurar User-Agent e viewport
             await pageReload.setUserAgent(user_agents_1.default.toString());
-            //setJavaScriptEnabled
+            await pageReload.setExtraHTTPHeaders({ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' });
             await pageReload.setJavaScriptEnabled(true);
-            //width and height
-            await pageReload.setViewport({
-                width: 1366,
-                height: 768,
-            });
+            await pageReload.setBypassCSP(true);
             await pageReload.goto(`${process.env.SC_URL}?placa=${placa}&renavam=${renavam}&g-recaptcha-response=${captchaToken.data}`, { waitUntil: 'networkidle2', timeout: 10000 });
             const buttonSubmitReload = await pageReload.$('button[class="g-recaptcha"]');
             await (buttonSubmitReload === null || buttonSubmitReload === void 0 ? void 0 : buttonSubmitReload.click());
