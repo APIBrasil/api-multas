@@ -31,7 +31,8 @@ import ApiMultas from 'api-multas'
 })();
 ```
 
-Oservações para o estado de PI, PA que por ter captcha é necessário obter uma chave do <a href="2captcha.com" target="_blank" > 2captcha </a>
+## Alguns detalhes específicos por estado
+Observações para o estado de PI, PA que por ter captcha é necessário obter uma chave do <a href="2captcha.com" target="_blank" > 2captcha </a>
 
 ```ts
 import ApiMultas from 'api-multas'
