@@ -47,7 +47,7 @@ class SCController {
         puppeteer.use(StealthPlugin());
 
         const browser = await puppeteer.launch({
-            headless: process.env.NODE_ENV === 'production' ? true: false,
+            headless: process.env.NODE_ENV === 'production' ? 'new' : false,
             slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
             timeout: 10000,
             args: [
@@ -68,7 +68,8 @@ class SCController {
         
         const page = await browser.newPage();
 
-        const userAgent = new useragent({ deviceCategory: 'desktop' }).toString();
+        const userAgent = new useragent({ deviceCategory: 'desktop', platform: 'Win32', vendor: 'Google Inc.', viewportHeight: 1080, viewportWidth: 1920 }).toString();
+
         console.log(userAgent);
 
         // Configurar User-Agent e viewport
@@ -125,7 +126,7 @@ class SCController {
 
             if (html.includes(textCaptchaInvalid)) {
                 await pageReload.close();
-                return { placa, renavam, captchaToken, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
+                return { placa, renavam, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
             }
 
             //new page with captcha solver

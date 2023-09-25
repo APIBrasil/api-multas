@@ -1435,7 +1435,7 @@
   "resolved" "https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz"
   "version" "0.3.0"
 
-"merge-deep@^3.0.1":
+"merge-deep@^3.0.1", "merge-deep@^3.0.2":
   "integrity" "sha512-qtmzAS6t6grwEkNrunqTBdn0qKwFgNWvlxUbAV8es9M7Ot1EbyApytCnvE0jALPa46ZpKDUo527kKiaWplmlFA=="
   "resolved" "https://registry.npmjs.org/merge-deep/-/merge-deep-3.0.3.tgz"
   "version" "3.0.3"
@@ -1752,6 +1752,15 @@
     "debug" "4.3.4"
     "devtools-protocol" "0.0.1159816"
     "ws" "8.14.1"
+
+"puppeteer-extra-plugin-recaptcha@^3.6.8":
+  "integrity" "sha512-AY2HG1ZFlSi4xs+Hy84LtRJ95DIfnbjR3Az64dJGVW8gr/hBAGEWRlXTMzea7YOmxO3Nc8Ak3CcUgjgp1gIu1w=="
+  "resolved" "https://registry.npmjs.org/puppeteer-extra-plugin-recaptcha/-/puppeteer-extra-plugin-recaptcha-3.6.8.tgz"
+  "version" "3.6.8"
+  dependencies:
+    "debug" "^4.1.1"
+    "merge-deep" "^3.0.2"
+    "puppeteer-extra-plugin" "^3.2.3"
 
 "puppeteer-extra-plugin-stealth@^2.11.2":
   "integrity" "sha512-bUemM5XmTj9i2ZerBzsk2AN5is0wHMNE6K0hXBzBXOzP5m5G3Wl0RHhiqKeHToe/uIH8AoZiGhc1tCkLZQPKTQ=="

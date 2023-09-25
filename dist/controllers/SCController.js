@@ -56,7 +56,7 @@ class SCController {
         this.scrap = async (placa, renavam, twocaptchaapikey) => {
             puppeteer_extra_1.default.use((0, puppeteer_extra_plugin_stealth_1.default)());
             const browser = await puppeteer_extra_1.default.launch({
-                headless: process.env.NODE_ENV === 'production' ? true : false,
+                headless: process.env.NODE_ENV === 'production' ? 'new' : false,
                 slowMo: process.env.NODE_ENV === 'production' ? 0 : 50,
                 timeout: 10000,
                 args: [
@@ -75,7 +75,7 @@ class SCController {
                 ]
             });
             const page = await browser.newPage();
-            const userAgent = new user_agents_1.default({ deviceCategory: 'desktop' }).toString();
+            const userAgent = new user_agents_1.default({ deviceCategory: 'desktop', platform: 'Win32', vendor: 'Google Inc.', viewportHeight: 1080, viewportWidth: 1920 }).toString();
             console.log(userAgent);
             // Configurar User-Agent e viewport
             await page.setUserAgent(userAgent);
@@ -116,7 +116,7 @@ class SCController {
                 }
                 if (html.includes(textCaptchaInvalid)) {
                     await pageReload.close();
-                    return { placa, renavam, captchaToken, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
+                    return { placa, renavam, multas: [], message: 'Problema de acesso a página. Recaptcha inválido. Consulte novamente' };
                 }
                 //new page with captcha solver
                 await pageReload.waitForSelector('table[bgcolor="white"]', { timeout: 10000 });
