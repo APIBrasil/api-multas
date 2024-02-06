@@ -16,8 +16,8 @@ import ApiMultas from 'api-multas'
 
 (async () => {
 
-    const host = 'http://localhost:2222';
-    const token = '1234567890';
+    const host = 'http://localhost:2222'; // seu localhost
+    const token = '1234567890'; // você deve criar qualquer token
 
     const api = new ApiMultas();
 
